@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import {
   View,
-  Text,
   Image,
   StyleSheet,
   TouchableOpacity,
   TextInput,
+  Text,
   FlatList,
-  // Button,
+  ScrollView,
 } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { Button, Header, ButtonGroup } from "@rneui/themed";
@@ -36,7 +36,6 @@ const Home = () => {
   const [searchText, setSearchText] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const [selectedIndexes, setSelectedIndexes] = useState([0, 2, 3]);
   const data = [
     {
       uri: "https://baotinmobile.vn/uploads/2023/09/banner-15promax-baotin.jpg.webp",
@@ -57,15 +56,33 @@ const Home = () => {
       setCurrentIndex((prevIndex) =>
         prevIndex === data.length - 1 ? 0 : prevIndex + 1
       );
-    }, 11111111); // Đổi ảnh mỗi 3 giây
+    }, 3000); // Change image every 3 seconds
 
     return () => {
       clearInterval(interval);
     };
   }, []);
+
   useEffect(() => {
-    // console.log("Current Index:", currentIndex);
-  }, [currentIndex]);
+    // setSelectedIndex(currentIndex)
+  },[currentIndex])
+
+  //Khai báo buttoms
+  const [selectedButton, setSelectedButton] = useState(null);
+  const buttons = [
+    {id: 1, value: 'IPHONE'},
+    {id: 2, value: 'SAMSUNG'},
+    {id: 3, value: 'XIAOMI'},
+    {id: 4, value: 'REDMI'},
+    {id: 5, value: 'OPPO'},
+  ]
+
+
+  const handleButtonClick = (buttonId) => {
+    setSelectedButton(buttonId);
+  };
+
+  console.log({selectedButton})
 
   return (
     <View style={styles.container}>
@@ -107,12 +124,13 @@ const Home = () => {
               event.nativeEvent.contentOffset.x /
                 event.nativeEvent.layoutMeasurement.width
             );
-            // console.log("newIndex:", newIndex);
-            console.log(currentIndex);
             setCurrentIndex(newIndex);
           }}
-          renderItem={({ item }) => (
-            <Image source={{ uri: item.uri }} style={styles.imageView} />
+          renderItem={({ item, index }) => (
+            <Image
+              source={{ uri: data[currentIndex].uri }}
+              style={styles.imageView}
+            />
           )}
         />
         <View style={styles.pagination}>
@@ -129,16 +147,50 @@ const Home = () => {
           ))}
         </View>
       </View>
-      <View style={styles.viewBButton}>
-        <ButtonGroup
+      <ScrollView horizontal showsHorizontalScrollIndicator={false} >
+              {/* <ButtonGroup
           buttons={["IPHONE", "SAMSUNG", "XIAOMI", "REDMI", "OPPO"]}
           selectedIndex={selectedIndex}
           onPress={(value) => {
             setSelectedIndex(value);
           }}
-          containerStyle={{ marginBottom: 20, marginLeft: 10 }}
-        />
-      </View>
+          buttonStyle={{
+            backgroundColor: 'white',
+            paddingHorizontal: 15, // Adjust padding as needed
+          }}
+          selectedButtonStyle={{
+            backgroundColor: 'black', // Set the color you want when the button is selected
+          }}
+          containerStyle={{ marginVertical: 20, marginHorizontal: 10, width: 500, backgroundColor: 'white', color: 'white' }}
+          innerBorderStyle={{ width: 5, borderColor: 'white',  backgroundColor: 'white', }} // To remove the border between buttons
+        /> */}
+          <View>
+            <View style={{
+              display: 'flex',
+              flexDirection: 'row',
+              padding: 10
+            }}>
+               {buttons.map((button) => (
+          <TouchableOpacity
+            key={button.id}
+            onPress={() => handleButtonClick(button.id)}
+            style={[
+              styles.button,
+              {
+                backgroundColor: selectedButton === button.id ? 'gray' : 'transparent',
+                
+                // Thay đổi màu sắc khi button được chọn
+              },
+            ]}
+          >
+            <Text style={[styles.buttonText, {
+              color: selectedButton === button.id ? 'white' : 'black',
+            }  ]}>{button.value}</Text>
+          </TouchableOpacity>
+        ))}
+            </View>
+          </View>
+      </ScrollView>
     </View>
   );
 };
@@ -179,7 +231,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   imageView: {
-    width: 382.5,
+    width: 400,
     height: 180,
     resizeMode: "cover",
     borderRadius: 20,
@@ -190,7 +242,6 @@ const styles = StyleSheet.create({
     top: -20,
     flexDirection: "row",
     justifyContent: "center",
-    // marginTop: 10,
   },
   paginationDot: {
     width: 8,
@@ -202,8 +253,22 @@ const styles = StyleSheet.create({
     display: "flex",
     justifyContent: "space-between",
   },
-  Button: {
+  button: {
     width: 50,
+  },
+  buttonGroup: {
+    flexDirection: 'row',
+    padding: 10,
+  },
+  button: {
+    borderWidth: 1,
+    borderColor: 'black',
+    borderRadius: 10,
+    padding: 10,
+    marginLeft: 10,
+  },
+  buttonText: {
+    textAlign: 'center',
   },
 });
 
