@@ -7,9 +7,10 @@ import {
   TouchableOpacity,
   TextInput,
   FlatList,
+  // Button,
 } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
-import { Header } from "@rneui/themed";
+import { Button, Header, ButtonGroup } from "@rneui/themed";
 
 const SearchBar = ({ value, onChangeText }) => {
   return (
@@ -34,7 +35,8 @@ const SearchBar = ({ value, onChangeText }) => {
 const Home = () => {
   const [searchText, setSearchText] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
-
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [selectedIndexes, setSelectedIndexes] = useState([0, 2, 3]);
   const data = [
     {
       uri: "https://baotinmobile.vn/uploads/2023/09/banner-15promax-baotin.jpg.webp",
@@ -55,68 +57,87 @@ const Home = () => {
       setCurrentIndex((prevIndex) =>
         prevIndex === data.length - 1 ? 0 : prevIndex + 1
       );
-    }, 1000); // Đổi ảnh mỗi 5 giây thay vì 3 giây
+    }, 11111111); // Đổi ảnh mỗi 3 giây
 
     return () => {
       clearInterval(interval);
     };
   }, []);
+  useEffect(() => {
+    // console.log("Current Index:", currentIndex);
+  }, [currentIndex]);
 
   return (
     <View style={styles.container}>
-      <Header
-        backgroundColor="#FFB6C1"
-        leftComponent={
-          <View style={styles.headerLeft}>
-            <TouchableOpacity style={{ marginLeft: 5 }}>
-              <FontAwesome name="bars" size={22} color="white" />
-            </TouchableOpacity>
-          </View>
-        }
-        rightComponent={
-          <View style={styles.headerRight}>
-            <TouchableOpacity style={{ marginRight: 5 }}>
-              <FontAwesome name="filter" size={22} color="white" />
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.filterButton}>
-              <FontAwesome name="bell" size={22} color="white" />
-            </TouchableOpacity>
-          </View>
-        }
-        centerComponent={
-          <SearchBar
-            value={searchText}
-            onChangeText={(text) => setSearchText(text)}
-          />
-        }
-      />
-      <FlatList
-        data={data}
-        keyExtractor={(item, index) => index.toString()}
-        horizontal
-        pagingEnabled
-        showsHorizontalScrollIndicator={false}
-        onMomentumScrollEnd={(event) => {
-          const newIndex = Math.round(
-            event.nativeEvent.contentOffset.x /
-              event.nativeEvent.layoutMeasurement.width
-          );
-          setCurrentIndex(newIndex);
-        }}
-        renderItem={({ item }) => (
-          <Image source={{ uri: item.uri }} style={styles.imageView} />
-        )}
-      />
-      <View style={styles.pagination}>
-        {data.map((_, index) => (
-          <View
-            key={index}
-            style={[
-              styles.paginationDot,
-              { backgroundColor: index === currentIndex ? "#FFB6C1" : "#888" },
-            ]}
-          />
-        ))}
+      <View>
+        <Header
+          backgroundColor="#FFB6C1"
+          leftComponent={
+            <View style={styles.headerLeft}>
+              <TouchableOpacity style={{ marginLeft: 5 }}>
+                <FontAwesome name="bars" size={22} color="white" />
+              </TouchableOpacity>
+            </View>
+          }
+          rightComponent={
+            <View style={styles.headerRight}>
+              <TouchableOpacity style={{ marginRight: 5 }}>
+                <FontAwesome name="filter" size={22} color="white" />
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.filterButton}>
+                <FontAwesome name="bell" size={22} color="white" />
+              </TouchableOpacity>
+            </View>
+          }
+          centerComponent={
+            <SearchBar
+              value={searchText}
+              onChangeText={(text) => setSearchText(text)}
+            />
+          }
+        />
+        <FlatList
+          data={data}
+          keyExtractor={(item, index) => index.toString()}
+          horizontal
+          pagingEnabled
+          showsHorizontalScrollIndicator={false}
+          onMomentumScrollEnd={(event) => {
+            const newIndex = Math.round(
+              event.nativeEvent.contentOffset.x /
+                event.nativeEvent.layoutMeasurement.width
+            );
+            // console.log("newIndex:", newIndex);
+            console.log(currentIndex);
+            setCurrentIndex(newIndex);
+          }}
+          renderItem={({ item }) => (
+            <Image source={{ uri: item.uri }} style={styles.imageView} />
+          )}
+        />
+        <View style={styles.pagination}>
+          {data.map((_, index) => (
+            <View
+              key={index}
+              style={[
+                styles.paginationDot,
+                {
+                  backgroundColor: index === currentIndex ? "#FFB6C1" : "#888",
+                },
+              ]}
+            />
+          ))}
+        </View>
+      </View>
+      <View style={styles.viewBButton}>
+        <ButtonGroup
+          buttons={["IPHONE", "SAMSUNG", "XIAOMI", "REDMI", "OPPO"]}
+          selectedIndex={selectedIndex}
+          onPress={(value) => {
+            setSelectedIndex(value);
+          }}
+          containerStyle={{ marginBottom: 20, marginLeft: 10 }}
+        />
       </View>
     </View>
   );
@@ -166,15 +187,23 @@ const styles = StyleSheet.create({
     marginBottom: 0,
   },
   pagination: {
+    top: -20,
     flexDirection: "row",
     justifyContent: "center",
-    marginTop: 10,
+    // marginTop: 10,
   },
   paginationDot: {
-    width: 10,
-    height: 10,
+    width: 8,
+    height: 8,
     borderRadius: 5,
     marginHorizontal: 5,
+  },
+  viewBButton: {
+    display: "flex",
+    justifyContent: "space-between",
+  },
+  Button: {
+    width: 50,
   },
 });
 
