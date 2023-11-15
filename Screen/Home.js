@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { AntDesign } from "@expo/vector-icons";
 import {
   View,
   Image,
@@ -10,8 +11,16 @@ import {
   ScrollView,
 } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
-import { Button, Header, ButtonGroup } from "@rneui/themed";
-
+import {
+  Button,
+  Header,
+  ButtonGroup,
+  PricingCard,
+  lightColors,
+  Rating,
+  Badge,
+} from "@rneui/themed";
+import { FontAwesome5 } from "@expo/vector-icons";
 const SearchBar = ({ value, onChangeText }) => {
   return (
     <View style={styles.searchContainer}>
@@ -56,7 +65,7 @@ const Home = () => {
       setCurrentIndex((prevIndex) =>
         prevIndex === data.length - 1 ? 0 : prevIndex + 1
       );
-    }, 3000); // Change image every 3 seconds
+    }, 5000); // Change image every 3 seconds
 
     return () => {
       clearInterval(interval);
@@ -65,54 +74,61 @@ const Home = () => {
 
   useEffect(() => {
     // setSelectedIndex(currentIndex)
-  },[currentIndex])
+  }, [currentIndex]);
 
   //Khai báo buttoms
   const [selectedButton, setSelectedButton] = useState(null);
   const buttons = [
-    {id: 1, value: 'IPHONE'},
-    {id: 2, value: 'SAMSUNG'},
-    {id: 3, value: 'XIAOMI'},
-    {id: 4, value: 'REDMI'},
-    {id: 5, value: 'OPPO'},
-  ]
-
+    { id: 1, value: "IPHONE" },
+    { id: 2, value: "SAMSUNG" },
+    { id: 3, value: "XIAOMI" },
+    { id: 4, value: "REALME" },
+    { id: 5, value: "OPPO" },
+    { id: 6, value: "VIVO" },
+    { id: 7, value: "HUAWEI" },
+    { id: 8, value: "NOKIA" },
+  ];
 
   const handleButtonClick = (buttonId) => {
     setSelectedButton(buttonId);
   };
 
-  console.log({selectedButton})
+  // console.log({ selectedButton });
 
   return (
-    <View style={styles.container}>
+    <ScrollView
+      stickyHeaderIndices={[0]}
+      showsVerticalScrollIndicator={false}
+      style={styles.container}
+    >
+      <Header
+        backgroundColor="#FFB6C1"
+        leftComponent={
+          <View style={styles.headerLeft}>
+            <TouchableOpacity style={{ marginLeft: 5 }}>
+              <FontAwesome name="bars" size={22} color="white" />
+            </TouchableOpacity>
+          </View>
+        }
+        rightComponent={
+          <View style={styles.headerRight}>
+            <TouchableOpacity style={{ marginRight: 5 }}>
+              <FontAwesome name="filter" size={22} color="white" />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.filterButton}>
+              <FontAwesome name="bell" size={22} color="white" />
+            </TouchableOpacity>
+          </View>
+        }
+        centerComponent={
+          <SearchBar
+            value={searchText}
+            onChangeText={(text) => setSearchText(text)}
+          />
+        }
+      />
+
       <View>
-        <Header
-          backgroundColor="#FFB6C1"
-          leftComponent={
-            <View style={styles.headerLeft}>
-              <TouchableOpacity style={{ marginLeft: 5 }}>
-                <FontAwesome name="bars" size={22} color="white" />
-              </TouchableOpacity>
-            </View>
-          }
-          rightComponent={
-            <View style={styles.headerRight}>
-              <TouchableOpacity style={{ marginRight: 5 }}>
-                <FontAwesome name="filter" size={22} color="white" />
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.filterButton}>
-                <FontAwesome name="bell" size={22} color="white" />
-              </TouchableOpacity>
-            </View>
-          }
-          centerComponent={
-            <SearchBar
-              value={searchText}
-              onChangeText={(text) => setSearchText(text)}
-            />
-          }
-        />
         <FlatList
           data={data}
           keyExtractor={(item, index) => index.toString()}
@@ -147,57 +163,590 @@ const Home = () => {
           ))}
         </View>
       </View>
-      <ScrollView horizontal showsHorizontalScrollIndicator={false} >
-              {/* <ButtonGroup
-          buttons={["IPHONE", "SAMSUNG", "XIAOMI", "REDMI", "OPPO"]}
-          selectedIndex={selectedIndex}
-          onPress={(value) => {
-            setSelectedIndex(value);
-          }}
-          buttonStyle={{
-            backgroundColor: 'white',
-            paddingHorizontal: 15, // Adjust padding as needed
-          }}
-          selectedButtonStyle={{
-            backgroundColor: 'black', // Set the color you want when the button is selected
-          }}
-          containerStyle={{ marginVertical: 20, marginHorizontal: 10, width: 500, backgroundColor: 'white', color: 'white' }}
-          innerBorderStyle={{ width: 5, borderColor: 'white',  backgroundColor: 'white', }} // To remove the border between buttons
-        /> */}
-          <View>
-            <View style={{
-              display: 'flex',
-              flexDirection: 'row',
-              padding: 10
-            }}>
-               {buttons.map((button) => (
-          <TouchableOpacity
-            key={button.id}
-            onPress={() => handleButtonClick(button.id)}
-            style={[
-              styles.button,
-              {
-                backgroundColor: selectedButton === button.id ? 'gray' : 'transparent',
-                
-                // Thay đổi màu sắc khi button được chọn
-              },
-            ]}
+
+      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+        <View>
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              padding: 10,
+              marginTop: -5,
+            }}
           >
-            <Text style={[styles.buttonText, {
-              color: selectedButton === button.id ? 'white' : 'black',
-            }  ]}>{button.value}</Text>
-          </TouchableOpacity>
-        ))}
-            </View>
+            {buttons.map((button) => (
+              <TouchableOpacity
+                key={button.id}
+                onPress={() => handleButtonClick(button.id)}
+                style={[
+                  styles.button,
+                  {
+                    backgroundColor:
+                      selectedButton === button.id ? "#FFB6C1" : "transparent",
+
+                    // Thay đổi màu sắc khi button được chọn
+                  },
+                ]}
+              >
+                <Text
+                  style={[
+                    styles.buttonText,
+                    {
+                      color: selectedButton === button.id ? "white" : "pink",
+                      fontSize: 12,
+                      top: -2,
+                    },
+                  ]}
+                >
+                  {button.value}
+                </Text>
+              </TouchableOpacity>
+            ))}
           </View>
+        </View>
       </ScrollView>
-    </View>
+      <View
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+          paddingHorizontal: 10,
+          paddingVertical: 5,
+          fontSize: 16,
+        }}
+      >
+        <Text style={{ color: "pink" }}>NEW ARRIVALS</Text>
+        <Text style={{ color: "gray" }}>VIEW ALL</Text>
+      </View>
+      <View>
+        <View>
+          <ScrollView
+            horizontal={true}
+            style={{
+              marginTop: 10,
+              display: "flex",
+              flexDirection: "row",
+              marginLeft: 5.5,
+              marginRight: 5.5,
+            }}
+          >
+            <View style={styles.content}>
+              <Image
+                source={{
+                  uri: "https://cdn1.viettelstore.vn/Images/Product/ProductImage/1921167348.jpeg",
+                }}
+                style={styles.imageContent}
+              />
+              <View style={styles.textContainer}>
+                <Text style={styles.productName}>IPhone 15 Pro Max 1TB</Text>
+                <Text style={styles.price}>43.990.000 vnđ</Text>
+                <Text style={styles.discount}>50.000.000 vnđ</Text>
+                <View>
+                  <View
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      marginTop: 1,
+                    }}
+                  >
+                    <AntDesign name="star" size={13} color="orange" />
+                    <Text
+                      style={{ color: "orange", fontSize: 12, marginLeft: 3 }}
+                    >
+                      4.9
+                    </Text>
+                    <Text
+                      style={{ color: "grey", fontSize: 12, marginLeft: 50 }}
+                    >
+                      {"|       "}
+                      20 Đã bán
+                    </Text>
+                  </View>
+                  <View
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      marginTop: 0,
+                      marginLeft: 2,
+                    }}
+                  >
+                    <FontAwesome5
+                      name="map-marker-alt"
+                      size={12}
+                      color="grey"
+                    />
+                    <Text
+                      style={{ color: "grey", fontSize: 12, marginLeft: 5 }}
+                    >
+                      Hà Nội
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            </View>
+            <View style={styles.content}>
+              <Image
+                source={{
+                  uri: "https://cdn1.viettelstore.vn/Images/Product/ProductImage/1921167348.jpeg",
+                }}
+                style={styles.imageContent}
+              />
+              <View style={styles.textContainer}>
+                <Text style={styles.productName}>IPhone 15 Pro Max 1TB</Text>
+                <Text style={styles.price}>43.990.000 vnđ</Text>
+                <Text style={styles.discount}>50.000.000 vnđ</Text>
+                <View>
+                  <View
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      marginTop: 1,
+                    }}
+                  >
+                    <AntDesign name="star" size={13} color="orange" />
+                    <Text
+                      style={{ color: "orange", fontSize: 12, marginLeft: 3 }}
+                    >
+                      4.9
+                    </Text>
+                    <Text
+                      style={{ color: "grey", fontSize: 12, marginLeft: 50 }}
+                    >
+                      {"|       "}
+                      20 Đã bán
+                    </Text>
+                  </View>
+                  <View
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      marginTop: 0,
+                      marginLeft: 2,
+                    }}
+                  >
+                    <FontAwesome5
+                      name="map-marker-alt"
+                      size={12}
+                      color="grey"
+                    />
+                    <Text
+                      style={{ color: "grey", fontSize: 12, marginLeft: 5 }}
+                    >
+                      Hà Nội
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            </View>
+            <View style={styles.content}>
+              <Image
+                source={{
+                  uri: "https://cdn1.viettelstore.vn/Images/Product/ProductImage/1921167348.jpeg",
+                }}
+                style={styles.imageContent}
+              />
+              <View style={styles.textContainer}>
+                <Text style={styles.productName}>IPhone 15 Pro Max 1TB</Text>
+                <Text style={styles.price}>43.990.000 vnđ</Text>
+                <Text style={styles.discount}>50.000.000 vnđ</Text>
+                <View>
+                  <View
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      marginTop: 1,
+                    }}
+                  >
+                    <AntDesign name="star" size={13} color="orange" />
+                    <Text
+                      style={{ color: "orange", fontSize: 12, marginLeft: 3 }}
+                    >
+                      4.9
+                    </Text>
+                    <Text
+                      style={{ color: "grey", fontSize: 12, marginLeft: 50 }}
+                    >
+                      {"|       "}
+                      20 Đã bán
+                    </Text>
+                  </View>
+                  <View
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      marginTop: 0,
+                      marginLeft: 2,
+                    }}
+                  >
+                    <FontAwesome5
+                      name="map-marker-alt"
+                      size={12}
+                      color="grey"
+                    />
+                    <Text
+                      style={{ color: "grey", fontSize: 12, marginLeft: 5 }}
+                    >
+                      Hà Nội
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            </View>
+            <View style={styles.content}>
+              <Image
+                source={{
+                  uri: "https://cdn1.viettelstore.vn/Images/Product/ProductImage/1921167348.jpeg",
+                }}
+                style={styles.imageContent}
+              />
+              <View style={styles.textContainer}>
+                <Text style={styles.productName}>IPhone 15 Pro Max 1TB</Text>
+                <Text style={styles.price}>43.990.000 vnđ</Text>
+                <Text style={styles.discount}>50.000.000 vnđ</Text>
+                <View>
+                  <View
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      marginTop: 1,
+                    }}
+                  >
+                    <AntDesign name="star" size={13} color="orange" />
+                    <Text
+                      style={{ color: "orange", fontSize: 12, marginLeft: 3 }}
+                    >
+                      4.9
+                    </Text>
+                    <Text
+                      style={{ color: "grey", fontSize: 12, marginLeft: 50 }}
+                    >
+                      {"|       "}
+                      20 Đã bán
+                    </Text>
+                  </View>
+                  <View
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      marginTop: 0,
+                      marginLeft: 2,
+                    }}
+                  >
+                    <FontAwesome5
+                      name="map-marker-alt"
+                      size={12}
+                      color="grey"
+                    />
+                    <Text
+                      style={{ color: "grey", fontSize: 12, marginLeft: 5 }}
+                    >
+                      Hà Nội
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            </View>
+            <View style={styles.content}>
+              <Image
+                source={{
+                  uri: "https://cdn1.viettelstore.vn/Images/Product/ProductImage/1921167348.jpeg",
+                }}
+                style={styles.imageContent}
+              />
+              <View style={styles.textContainer}>
+                <Text style={styles.productName}>IPhone 15 Pro Max 1TB</Text>
+                <Text style={styles.price}>43.990.000 vnđ</Text>
+                <Text style={styles.discount}>50.000.000 vnđ</Text>
+                <View>
+                  <View
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      marginTop: 1,
+                    }}
+                  >
+                    <AntDesign name="star" size={13} color="orange" />
+                    <Text
+                      style={{ color: "orange", fontSize: 12, marginLeft: 3 }}
+                    >
+                      4.9
+                    </Text>
+                    <Text
+                      style={{ color: "grey", fontSize: 12, marginLeft: 50 }}
+                    >
+                      {"|       "}
+                      20 Đã bán
+                    </Text>
+                  </View>
+                  <View
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      marginTop: 0,
+                      marginLeft: 2,
+                    }}
+                  >
+                    <FontAwesome5
+                      name="map-marker-alt"
+                      size={12}
+                      color="grey"
+                    />
+                    <Text
+                      style={{ color: "grey", fontSize: 12, marginLeft: 5 }}
+                    >
+                      Hà Nội
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            </View>
+            <View style={styles.content}>
+              <Image
+                source={{
+                  uri: "https://cdn1.viettelstore.vn/Images/Product/ProductImage/1921167348.jpeg",
+                }}
+                style={styles.imageContent}
+              />
+              <View style={styles.textContainer}>
+                <Text style={styles.productName}>IPhone 15 Pro Max 1TB</Text>
+                <Text style={styles.price}>43.990.000 vnđ</Text>
+                <Text style={styles.discount}>50.000.000 vnđ</Text>
+                <View>
+                  <View
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      marginTop: 1,
+                    }}
+                  >
+                    <AntDesign name="star" size={13} color="orange" />
+                    <Text
+                      style={{ color: "orange", fontSize: 12, marginLeft: 3 }}
+                    >
+                      4.9
+                    </Text>
+                    <Text
+                      style={{ color: "grey", fontSize: 12, marginLeft: 50 }}
+                    >
+                      {"|       "}
+                      20 Đã bán
+                    </Text>
+                  </View>
+                  <View
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      marginTop: 0,
+                      marginLeft: 2,
+                    }}
+                  >
+                    <FontAwesome5
+                      name="map-marker-alt"
+                      size={12}
+                      color="grey"
+                    />
+                    <Text
+                      style={{ color: "grey", fontSize: 12, marginLeft: 5 }}
+                    >
+                      Hà Nội
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            </View>
+            <View style={styles.content}>
+              <Image
+                source={{
+                  uri: "https://cdn1.viettelstore.vn/Images/Product/ProductImage/1921167348.jpeg",
+                }}
+                style={styles.imageContent}
+              />
+              <View style={styles.textContainer}>
+                <Text style={styles.productName}>IPhone 15 Pro Max 1TB</Text>
+                <Text style={styles.price}>43.990.000 vnđ</Text>
+                <Text style={styles.discount}>50.000.000 vnđ</Text>
+                <View>
+                  <View
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      marginTop: 1,
+                    }}
+                  >
+                    <AntDesign name="star" size={13} color="orange" />
+                    <Text
+                      style={{ color: "orange", fontSize: 12, marginLeft: 3 }}
+                    >
+                      4.9
+                    </Text>
+                    <Text
+                      style={{ color: "grey", fontSize: 12, marginLeft: 50 }}
+                    >
+                      {"|       "}
+                      20 Đã bán
+                    </Text>
+                  </View>
+                  <View
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      marginTop: 0,
+                      marginLeft: 2,
+                    }}
+                  >
+                    <FontAwesome5
+                      name="map-marker-alt"
+                      size={12}
+                      color="grey"
+                    />
+                    <Text
+                      style={{ color: "grey", fontSize: 12, marginLeft: 5 }}
+                    >
+                      Hà Nội
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            </View>
+          </ScrollView>
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              paddingHorizontal: 10,
+              paddingVertical: 15,
+              fontSize: 16,
+            }}
+          >
+            <Text style={{ color: "red" }}>FLASH SALE</Text>
+            <Text style={{ color: "gray" }}>VIEW ALL</Text>
+          </View>
+          <ScrollView
+            horizontal={true}
+            style={{
+              marginTop: 0,
+              display: "flex",
+              flexDirection: "row",
+              marginLeft: 5.5,
+              marginRight: 5.5,
+            }}
+          >
+            <View style={styles.contentSale}>
+              <Image
+                source={{
+                  uri: "https://cdn1.viettelstore.vn/Images/Product/ProductImage/1921167348.jpeg",
+                }}
+                style={styles.imageContentSale}
+              />
+              <View style={{ right: -60, top: -137 }}>
+                <Badge value="-10%" status="error" />
+              </View>
+              <View style={styles.textContainerSale}>
+                <Text style={styles.productNameSale}>IPhone 15 Pro Max</Text>
+                <Text style={styles.priceSale}>40.990.000 vnđ</Text>
+              </View>
+            </View>
+            <View style={styles.contentSale}>
+              <Image
+                source={{
+                  uri: "https://cdn1.viettelstore.vn/Images/Product/ProductImage/1921167348.jpeg",
+                }}
+                style={styles.imageContentSale}
+              />
+              <View style={{ right: -60, top: -137 }}>
+                <Badge value="-10%" status="error" />
+              </View>
+              <View style={styles.textContainerSale}>
+                <Text style={styles.productNameSale}>IPhone 15 Pro Max</Text>
+                <Text style={styles.priceSale}>40.990.000 vnđ</Text>
+              </View>
+            </View>
+            <View style={styles.contentSale}>
+              <Image
+                source={{
+                  uri: "https://cdn1.viettelstore.vn/Images/Product/ProductImage/1921167348.jpeg",
+                }}
+                style={styles.imageContentSale}
+              />
+              <View style={{ right: -60, top: -137 }}>
+                <Badge value="-10%" status="error" />
+              </View>
+              <View style={styles.textContainerSale}>
+                <Text style={styles.productNameSale}>IPhone 15 Pro Max</Text>
+                <Text style={styles.priceSale}>40.990.000 vnđ</Text>
+              </View>
+            </View>
+            <View style={styles.contentSale}>
+              <Image
+                source={{
+                  uri: "https://cdn1.viettelstore.vn/Images/Product/ProductImage/1921167348.jpeg",
+                }}
+                style={styles.imageContentSale}
+              />
+              <View style={{ right: -60, top: -137 }}>
+                <Badge value="-10%" status="error" />
+              </View>
+              <View style={styles.textContainerSale}>
+                <Text style={styles.productNameSale}>IPhone 15 Pro Max</Text>
+                <Text style={styles.priceSale}>40.990.000 vnđ</Text>
+              </View>
+            </View>
+            <View style={styles.contentSale}>
+              <Image
+                source={{
+                  uri: "https://cdn1.viettelstore.vn/Images/Product/ProductImage/1921167348.jpeg",
+                }}
+                style={styles.imageContentSale}
+              />
+              <View style={{ right: -60, top: -137 }}>
+                <Badge value="-10%" status="error" />
+              </View>
+              <View style={styles.textContainerSale}>
+                <Text style={styles.productNameSale}>IPhone 15 Pro Max</Text>
+                <Text style={styles.priceSale}>40.990.000 vnđ</Text>
+              </View>
+            </View>
+            <View style={styles.contentSale}>
+              <Image
+                source={{
+                  uri: "https://cdn1.viettelstore.vn/Images/Product/ProductImage/1921167348.jpeg",
+                }}
+                style={styles.imageContentSale}
+              />
+              <View style={{ right: -60, top: -137 }}>
+                <Badge value="-10%" status="error" />
+              </View>
+              <View style={styles.textContainerSale}>
+                <Text style={styles.productNameSale}>IPhone 15 Pro Max</Text>
+                <Text style={styles.priceSale}>40.990.000 vnđ</Text>
+              </View>
+            </View>
+          </ScrollView>
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "center",
+              paddingHorizontal: 10,
+              paddingVertical: 15,
+              fontSize: 16,
+              backgroundColor: "#FFB6C1",
+              margin: 10,
+              borderRadius: 15,
+            }}
+          >
+            <Text style={{ color: "#fff", fontSize: 20 }}>DAILY DISCOVER</Text>
+          </View>
+        </View>
+      </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
   },
   headerLeft: {
     display: "flex",
@@ -231,7 +780,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   imageView: {
-    width: 400,
+    width: 382,
     height: 180,
     resizeMode: "cover",
     borderRadius: 20,
@@ -249,26 +798,80 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginHorizontal: 5,
   },
-  viewBButton: {
-    display: "flex",
-    justifyContent: "space-between",
-  },
-  button: {
-    width: 50,
-  },
+
   buttonGroup: {
-    flexDirection: 'row',
+    flexDirection: "row",
     padding: 10,
   },
   button: {
     borderWidth: 1,
-    borderColor: 'black',
+    borderColor: "pink",
     borderRadius: 10,
     padding: 10,
     marginLeft: 10,
+    height: 35,
+    left: -10,
   },
-  buttonText: {
-    textAlign: 'center',
+  content: {
+    marginLeft: 5.5,
+    marginRight: 5.5,
+    width: 180,
+    height: 300,
+    backgroundColor: "#FFE4E1",
+    borderRadius: 15,
+    alignItems: "center",
+  },
+  imageContent: {
+    marginTop: 8,
+    width: 160,
+    height: 160,
+    borderRadius: 15,
+  },
+  textContainer: {
+    padding: 10,
+  },
+  productName: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginBottom: 3,
+  },
+  price: {
+    fontSize: 16,
+    color: "red", // Set color for the price
+  },
+  contentSale: {
+    marginLeft: 5.5,
+    marginRight: 5.5,
+    width: 150,
+    height: 210,
+    backgroundColor: "#FFE4E1",
+    borderRadius: 15,
+    alignItems: "center",
+  },
+  productNameSale: {
+    fontSize: 15,
+    fontWeight: "bold",
+    marginBottom: 3,
+  },
+  imageContentSale: {
+    marginTop: 8,
+    width: 130,
+    height: 130,
+    borderRadius: 15,
+  },
+  priceSale: {
+    textAlign: "center",
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "red", // Set color for the price
+  },
+  discount: {
+    color: "grey",
+    fontSize: 12,
+    textDecorationLine: "line-through",
+  },
+  textContainerSale: {
+    top: -10,
   },
 });
 
