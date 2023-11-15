@@ -7,6 +7,7 @@ import Home from "./Screen/Home";
 import Product from "./Screen/Product";
 import User from "./Screen/User";
 import Cart from "./Screen/Cart";
+import Wishlist from "./Screen/Wishlist";
 
 const Tab = createBottomTabNavigator();
 
@@ -27,6 +28,8 @@ export default function App() {
               iconName = focused ? "cart" : "cart-outline";
             } else if (route.name === "Product") {
               iconName = focused ? "pricetag" : "pricetag-outline";
+            } else if (route.name === "Wishlist") {
+              iconName = focused ? "heart" : "heart-outline";
             }
 
             return <Icon name={iconName} size={size} color={color} />;
@@ -43,6 +46,7 @@ export default function App() {
         />
         <Tab.Screen name="Product" component={Product} />
         <Tab.Screen name="Cart" component={Cart} />
+        <Tab.Screen name="Wishlist" component={Wishlist} />
         <Tab.Screen name="User" component={User} />
       </Tab.Navigator>
     </NavigationContainer>

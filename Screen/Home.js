@@ -733,10 +733,454 @@ const Home = () => {
               fontSize: 16,
               backgroundColor: "#FFB6C1",
               margin: 10,
+              marginBottom: -5,
               borderRadius: 15,
             }}
           >
             <Text style={{ color: "#fff", fontSize: 20 }}>DAILY DISCOVER</Text>
+          </View>
+          <View
+            style={{
+              marginTop: 10,
+              display: "flex",
+              flexDirection: "row",
+              flexWrap: "wrap",
+              marginLeft: 5.5,
+              marginRight: 5.5,
+            }}
+          >
+            <View style={styles.contentDiscover}>
+              <Image
+                source={{
+                  uri: "https://cdn1.viettelstore.vn/Images/Product/ProductImage/1921167348.jpeg",
+                }}
+                style={styles.imageContent}
+              />
+              <View style={styles.textContainer}>
+                <Text style={styles.productName}>IPhone 15 Pro Max 1TB</Text>
+                <Text style={styles.price}>43.990.000 vnđ</Text>
+                <Text style={styles.discount}>50.000.000 vnđ</Text>
+                <View>
+                  <View
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      marginTop: 1,
+                    }}
+                  >
+                    <AntDesign name="star" size={13} color="orange" />
+                    <Text
+                      style={{ color: "orange", fontSize: 12, marginLeft: 3 }}
+                    >
+                      4.9
+                    </Text>
+                    <Text
+                      style={{ color: "grey", fontSize: 12, marginLeft: 50 }}
+                    >
+                      {"|       "}
+                      20 Đã bán
+                    </Text>
+                  </View>
+                  <View
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      marginTop: 0,
+                      marginLeft: 2,
+                    }}
+                  >
+                    <FontAwesome5
+                      name="map-marker-alt"
+                      size={12}
+                      color="grey"
+                    />
+                    <Text
+                      style={{ color: "grey", fontSize: 12, marginLeft: 5 }}
+                    >
+                      Hà Nội
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            </View>
+            <View style={styles.contentDiscover}>
+              <Image
+                source={{
+                  uri: "https://cdn1.viettelstore.vn/Images/Product/ProductImage/1921167348.jpeg",
+                }}
+                style={styles.imageContent}
+              />
+              <View style={styles.textContainer}>
+                <Text style={styles.productName}>IPhone 15 Pro Max 1TB</Text>
+                <Text style={styles.price}>43.990.000 vnđ</Text>
+                <Text style={styles.discount}>50.000.000 vnđ</Text>
+                <View>
+                  <View
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      marginTop: 1,
+                    }}
+                  >
+                    <AntDesign name="star" size={13} color="orange" />
+                    <Text
+                      style={{ color: "orange", fontSize: 12, marginLeft: 3 }}
+                    >
+                      4.9
+                    </Text>
+                    <Text
+                      style={{ color: "grey", fontSize: 12, marginLeft: 50 }}
+                    >
+                      {"|       "}
+                      20 Đã bán
+                    </Text>
+                  </View>
+                  <View
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      marginTop: 0,
+                      marginLeft: 2,
+                    }}
+                  >
+                    <FontAwesome5
+                      name="map-marker-alt"
+                      size={12}
+                      color="grey"
+                    />
+                    <Text
+                      style={{ color: "grey", fontSize: 12, marginLeft: 5 }}
+                    >
+                      Hà Nội
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            </View>
+            <View style={styles.contentDiscover}>
+              <Image
+                source={{
+                  uri: "https://cdn1.viettelstore.vn/Images/Product/ProductImage/1921167348.jpeg",
+                }}
+                style={styles.imageContent}
+              />
+              <View style={styles.textContainer}>
+                <Text style={styles.productName}>IPhone 15 Pro Max 1TB</Text>
+                <Text style={styles.price}>43.990.000 vnđ</Text>
+                <Text style={styles.discount}>50.000.000 vnđ</Text>
+                <View>
+                  <View
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      marginTop: 1,
+                    }}
+                  >
+                    <AntDesign name="star" size={13} color="orange" />
+                    <Text
+                      style={{ color: "orange", fontSize: 12, marginLeft: 3 }}
+                    >
+                      4.9
+                    </Text>
+                    <Text
+                      style={{ color: "grey", fontSize: 12, marginLeft: 50 }}
+                    >
+                      {"|       "}
+                      20 Đã bán
+                    </Text>
+                  </View>
+                  <View
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      marginTop: 0,
+                      marginLeft: 2,
+                    }}
+                  >
+                    <FontAwesome5
+                      name="map-marker-alt"
+                      size={12}
+                      color="grey"
+                    />
+                    <Text
+                      style={{ color: "grey", fontSize: 12, marginLeft: 5 }}
+                    >
+                      Hà Nội
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            </View>
+            <View style={styles.contentDiscover}>
+              <Image
+                source={{
+                  uri: "https://cdn1.viettelstore.vn/Images/Product/ProductImage/1921167348.jpeg",
+                }}
+                style={styles.imageContent}
+              />
+              <View style={styles.textContainer}>
+                <Text style={styles.productName}>IPhone 15 Pro Max 1TB</Text>
+                <Text style={styles.price}>43.990.000 vnđ</Text>
+                <Text style={styles.discount}>50.000.000 vnđ</Text>
+                <View>
+                  <View
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      marginTop: 1,
+                    }}
+                  >
+                    <AntDesign name="star" size={13} color="orange" />
+                    <Text
+                      style={{ color: "orange", fontSize: 12, marginLeft: 3 }}
+                    >
+                      4.9
+                    </Text>
+                    <Text
+                      style={{ color: "grey", fontSize: 12, marginLeft: 50 }}
+                    >
+                      {"|       "}
+                      20 Đã bán
+                    </Text>
+                  </View>
+                  <View
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      marginTop: 0,
+                      marginLeft: 2,
+                    }}
+                  >
+                    <FontAwesome5
+                      name="map-marker-alt"
+                      size={12}
+                      color="grey"
+                    />
+                    <Text
+                      style={{ color: "grey", fontSize: 12, marginLeft: 5 }}
+                    >
+                      Hà Nội
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            </View>
+            <View style={styles.contentDiscover}>
+              <Image
+                source={{
+                  uri: "https://cdn1.viettelstore.vn/Images/Product/ProductImage/1921167348.jpeg",
+                }}
+                style={styles.imageContent}
+              />
+              <View style={styles.textContainer}>
+                <Text style={styles.productName}>IPhone 15 Pro Max 1TB</Text>
+                <Text style={styles.price}>43.990.000 vnđ</Text>
+                <Text style={styles.discount}>50.000.000 vnđ</Text>
+                <View>
+                  <View
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      marginTop: 1,
+                    }}
+                  >
+                    <AntDesign name="star" size={13} color="orange" />
+                    <Text
+                      style={{ color: "orange", fontSize: 12, marginLeft: 3 }}
+                    >
+                      4.9
+                    </Text>
+                    <Text
+                      style={{ color: "grey", fontSize: 12, marginLeft: 50 }}
+                    >
+                      {"|       "}
+                      20 Đã bán
+                    </Text>
+                  </View>
+                  <View
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      marginTop: 0,
+                      marginLeft: 2,
+                    }}
+                  >
+                    <FontAwesome5
+                      name="map-marker-alt"
+                      size={12}
+                      color="grey"
+                    />
+                    <Text
+                      style={{ color: "grey", fontSize: 12, marginLeft: 5 }}
+                    >
+                      Hà Nội
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            </View>
+            <View style={styles.contentDiscover}>
+              <Image
+                source={{
+                  uri: "https://cdn1.viettelstore.vn/Images/Product/ProductImage/1921167348.jpeg",
+                }}
+                style={styles.imageContent}
+              />
+              <View style={styles.textContainer}>
+                <Text style={styles.productName}>IPhone 15 Pro Max 1TB</Text>
+                <Text style={styles.price}>43.990.000 vnđ</Text>
+                <Text style={styles.discount}>50.000.000 vnđ</Text>
+                <View>
+                  <View
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      marginTop: 1,
+                    }}
+                  >
+                    <AntDesign name="star" size={13} color="orange" />
+                    <Text
+                      style={{ color: "orange", fontSize: 12, marginLeft: 3 }}
+                    >
+                      4.9
+                    </Text>
+                    <Text
+                      style={{ color: "grey", fontSize: 12, marginLeft: 50 }}
+                    >
+                      {"|       "}
+                      20 Đã bán
+                    </Text>
+                  </View>
+                  <View
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      marginTop: 0,
+                      marginLeft: 2,
+                    }}
+                  >
+                    <FontAwesome5
+                      name="map-marker-alt"
+                      size={12}
+                      color="grey"
+                    />
+                    <Text
+                      style={{ color: "grey", fontSize: 12, marginLeft: 5 }}
+                    >
+                      Hà Nội
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            </View>
+            <View style={styles.contentDiscover}>
+              <Image
+                source={{
+                  uri: "https://cdn1.viettelstore.vn/Images/Product/ProductImage/1921167348.jpeg",
+                }}
+                style={styles.imageContent}
+              />
+              <View style={styles.textContainer}>
+                <Text style={styles.productName}>IPhone 15 Pro Max 1TB</Text>
+                <Text style={styles.price}>43.990.000 vnđ</Text>
+                <Text style={styles.discount}>50.000.000 vnđ</Text>
+                <View>
+                  <View
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      marginTop: 1,
+                    }}
+                  >
+                    <AntDesign name="star" size={13} color="orange" />
+                    <Text
+                      style={{ color: "orange", fontSize: 12, marginLeft: 3 }}
+                    >
+                      4.9
+                    </Text>
+                    <Text
+                      style={{ color: "grey", fontSize: 12, marginLeft: 50 }}
+                    >
+                      {"|       "}
+                      20 Đã bán
+                    </Text>
+                  </View>
+                  <View
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      marginTop: 0,
+                      marginLeft: 2,
+                    }}
+                  >
+                    <FontAwesome5
+                      name="map-marker-alt"
+                      size={12}
+                      color="grey"
+                    />
+                    <Text
+                      style={{ color: "grey", fontSize: 12, marginLeft: 5 }}
+                    >
+                      Hà Nội
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            </View>
+            <View style={styles.contentDiscover}>
+              <Image
+                source={{
+                  uri: "https://cdn1.viettelstore.vn/Images/Product/ProductImage/1921167348.jpeg",
+                }}
+                style={styles.imageContent}
+              />
+              <View style={styles.textContainer}>
+                <Text style={styles.productName}>IPhone 15 Pro Max 1TB</Text>
+                <Text style={styles.price}>43.990.000 vnđ</Text>
+                <Text style={styles.discount}>50.000.000 vnđ</Text>
+                <View>
+                  <View
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      marginTop: 1,
+                    }}
+                  >
+                    <AntDesign name="star" size={13} color="orange" />
+                    <Text
+                      style={{ color: "orange", fontSize: 12, marginLeft: 3 }}
+                    >
+                      4.9
+                    </Text>
+                    <Text
+                      style={{ color: "grey", fontSize: 12, marginLeft: 50 }}
+                    >
+                      {"|       "}
+                      20 Đã bán
+                    </Text>
+                  </View>
+                  <View
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      marginTop: 0,
+                      marginLeft: 2,
+                    }}
+                  >
+                    <FontAwesome5
+                      name="map-marker-alt"
+                      size={12}
+                      color="grey"
+                    />
+                    <Text
+                      style={{ color: "grey", fontSize: 12, marginLeft: 5 }}
+                    >
+                      Hà Nội
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            </View>
           </View>
         </View>
       </View>
@@ -872,6 +1316,14 @@ const styles = StyleSheet.create({
   },
   textContainerSale: {
     top: -10,
+  },
+  contentDiscover: {
+    width: 180,
+    height: 300,
+    backgroundColor: "#FFE4E1",
+    borderRadius: 15,
+    alignItems: "center",
+    margin: 5,
   },
 });
 
