@@ -1,10 +1,10 @@
-import { View, Text } from 'react-native';
-import React from 'react';
+import { View, Text } from "react-native";
+import React from "react";
 
 export default function ProductDetails() {
-    return (
-        <View>
-            <Text>productDetails</Text>
-        </View>
-    );
+  return (
+    <View>
+      <Text>productDetails</Text>
+    </View>
+  );
 }
