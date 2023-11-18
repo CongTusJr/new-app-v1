@@ -49,35 +49,32 @@ const Cart = () => {
     },
   ];
   return (
-    <View>
-      <ScrollView
-        stickyHeaderIndices={[0]}
-        showsVerticalScrollIndicator={false}
-      >
-        <View>
-          <Header
-            backgroundColor="#FFB6C1"
-            leftComponent={
-              <View style={styles.headerLeft}>
-                <TouchableOpacity>
-                  <Ionicons name="md-arrow-back" size={24} color="white" />
-                </TouchableOpacity>
-              </View>
-            }
-            centerComponent={
-              <View style={styles.headerCenter}>
-                <Text style={styles.textHeader}>Your Cart</Text>
-              </View>
-            }
-            rightComponent={
-              <View style={styles.headerRight}>
-                <TouchableOpacity style={{ marginRight: 5 }}>
-                  <Ionicons name="ios-trash-bin" size={22} color="white" />
-                </TouchableOpacity>
-              </View>
-            }
-          />
-        </View>
+    <View style={styles.container}>
+      <View>
+        <Header
+          backgroundColor="#FFB6C1"
+          leftComponent={
+            <View style={styles.headerLeft}>
+              <TouchableOpacity>
+                <Ionicons name="md-arrow-back" size={24} color="white" />
+              </TouchableOpacity>
+            </View>
+          }
+          centerComponent={
+            <View style={styles.headerCenter}>
+              <Text style={styles.textHeader}>Your Cart</Text>
+            </View>
+          }
+          rightComponent={
+            <View style={styles.headerRight}>
+              <TouchableOpacity style={{ marginRight: 5 }}>
+                <Ionicons name="ios-trash-bin" size={22} color="white" />
+              </TouchableOpacity>
+            </View>
+          }
+        />
+      </View>
+      <ScrollView>
         <View style={styles.listContent}>
           {listShops.map((listShop) => (
             <View key={listShop.id} style={styles.listShop}>
@@ -185,6 +182,7 @@ const Cart = () => {
             </View>
           ))}
         </View>
+        <View style={{ height: 60 }}></View>
       </ScrollView>
       <View style={styles.footer}>
         <CheckBox
@@ -223,6 +221,8 @@ const Cart = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    // display: "flex",
+    // justifyContent: "center",
   },
   headerLeft: {
     display: "flex",

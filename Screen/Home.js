@@ -16,7 +16,7 @@ import {
   ScrollView,
   // LogBox,
 } from "react-native";
-import { Header, Badge } from "@rneui/themed";
+import { Header } from "@rneui/themed";
 
 import { LogBox } from "react-native";
 
@@ -240,9 +240,7 @@ const Home = ({ navigation }) => {
     };
   }, []);
 
-  useEffect(() => {
-    // setSelectedIndex(currentIndex)
-  }, [currentIndex]);
+  useEffect(() => {}, [currentIndex]);
 
   //Khai báo buttoms
   const [selectedButton, setSelectedButton] = useState(null);
@@ -263,11 +261,7 @@ const Home = ({ navigation }) => {
   // console.log({ selectedButton });
 
   return (
-    <ScrollView
-      stickyHeaderIndices={[0]}
-      showsVerticalScrollIndicator={false}
-      style={styles.container}
-    >
+    <View style={styles.container}>
       <Header
         backgroundColor="#FFB6C1"
         leftComponent={
@@ -294,363 +288,369 @@ const Home = ({ navigation }) => {
           />
         }
       />
-
-      <View>
-        <FlatList
-          data={data}
-          keyExtractor={(item, index) => index.toString()}
-          horizontal
-          pagingEnabled
-          showsHorizontalScrollIndicator={false}
-          onMomentumScrollEnd={(event) => {
-            const newIndex = Math.round(
-              event.nativeEvent.contentOffset.x /
-                event.nativeEvent.layoutMeasurement.width
-            );
-            setCurrentIndex(newIndex);
-          }}
-          renderItem={({ item, index }) => (
-            <Image
-              source={{ uri: data[currentIndex].uri }}
-              style={styles.imageView}
-            />
-          )}
-        />
-        <View style={styles.pagination}>
-          {data.map((_, index) => (
-            <View
-              key={index}
-              style={[
-                styles.paginationDot,
-                {
-                  backgroundColor: index === currentIndex ? "#FFB6C1" : "#888",
-                },
-              ]}
-            />
-          ))}
-        </View>
-      </View>
-
-      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+      <ScrollView>
         <View>
-          <View
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              padding: 10,
-              marginTop: -5,
+          <FlatList
+            data={data}
+            keyExtractor={(item, index) => index.toString()}
+            horizontal
+            pagingEnabled
+            showsHorizontalScrollIndicator={false}
+            onMomentumScrollEnd={(event) => {
+              const newIndex = Math.round(
+                event.nativeEvent.contentOffset.x /
+                  event.nativeEvent.layoutMeasurement.width
+              );
+              setCurrentIndex(newIndex);
             }}
-          >
-            {buttons.map((button) => (
-              <TouchableOpacity
-                key={button.id}
-                onPress={() => handleButtonClick(button.id)}
+            renderItem={({ item, index }) => (
+              <Image
+                source={{ uri: data[currentIndex].uri }}
+                style={styles.imageView}
+              />
+            )}
+          />
+          <View style={styles.pagination}>
+            {data.map((_, index) => (
+              <View
+                key={index}
                 style={[
-                  styles.button,
+                  styles.paginationDot,
                   {
                     backgroundColor:
-                      selectedButton === button.id ? "#FFB6C1" : "transparent",
-
-                    // Thay đổi màu sắc khi button được chọn
+                      index === currentIndex ? "#FFB6C1" : "#888",
                   },
                 ]}
-              >
-                <Text
+              />
+            ))}
+          </View>
+        </View>
+
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          <View>
+            <View
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                padding: 10,
+                marginTop: -5,
+              }}
+            >
+              {buttons.map((button) => (
+                <TouchableOpacity
+                  key={button.id}
+                  onPress={() => handleButtonClick(button.id)}
                   style={[
-                    styles.buttonText,
+                    styles.button,
                     {
-                      color: selectedButton === button.id ? "white" : "pink",
-                      fontSize: 12,
-                      top: -2,
+                      backgroundColor:
+                        selectedButton === button.id
+                          ? "#FFB6C1"
+                          : "transparent",
+
+                      // Thay đổi màu sắc khi button được chọn
                     },
                   ]}
                 >
-                  {button.value}
-                </Text>
-              </TouchableOpacity>
-            ))}
+                  <Text
+                    style={[
+                      styles.buttonText,
+                      {
+                        color: selectedButton === button.id ? "white" : "pink",
+                        fontSize: 12,
+                        top: -2,
+                      },
+                    ]}
+                  >
+                    {button.value}
+                  </Text>
+                </TouchableOpacity>
+              ))}
+            </View>
+          </View>
+        </ScrollView>
+        <View
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            paddingHorizontal: 10,
+            paddingVertical: 5,
+            fontSize: 16,
+          }}
+        >
+          <Text style={{ color: "pink" }}>NEW ARRIVALS</Text>
+          <Text style={{ color: "gray" }}>VIEW ALL</Text>
+        </View>
+        <View>
+          <View>
+            <ScrollView
+              horizontal={true}
+              style={{
+                marginTop: 10,
+                display: "flex",
+                flexDirection: "row",
+                marginLeft: 5.5,
+                marginRight: 5.5,
+              }}
+            >
+              {listProducts.map((listProduct) => (
+                <TouchableOpacity
+                  key={listProduct.id}
+                  style={styles.content}
+                  onPress={() => {
+                    navigation.navigate("Details");
+                  }}
+                >
+                  <Image
+                    source={{
+                      uri: listProduct.url,
+                    }}
+                    style={styles.imageContent}
+                  />
+                  <View style={styles.textContainer}>
+                    <Text style={styles.productName}>{listProduct.name}</Text>
+                    <Text style={styles.price}>{listProduct.price}</Text>
+                    <Text style={styles.discount}>{listProduct.discount}</Text>
+                    <View>
+                      <View
+                        style={{
+                          display: "flex",
+                          flexDirection: "row",
+                          marginTop: 1,
+                        }}
+                      >
+                        <AntDesign name="star" size={13} color="orange" />
+                        <Text
+                          style={{
+                            color: "orange",
+                            fontSize: 12,
+                            marginLeft: 3,
+                          }}
+                        >
+                          {listProduct.star}
+                        </Text>
+                        <Text
+                          style={{
+                            color: "grey",
+                            fontSize: 12,
+                            marginLeft: 50,
+                          }}
+                        >
+                          {"|       "}
+                          {listProduct.sold}
+                        </Text>
+                      </View>
+                      <View
+                        style={{
+                          display: "flex",
+                          flexDirection: "row",
+                          marginTop: 0,
+                          marginLeft: 2,
+                        }}
+                      >
+                        <FontAwesome5
+                          name="map-marker-alt"
+                          size={12}
+                          color="grey"
+                        />
+                        <Text
+                          style={{
+                            color: "grey",
+                            fontSize: 12,
+                            marginLeft: 5,
+                          }}
+                        >
+                          {listProduct.map}
+                        </Text>
+                      </View>
+                    </View>
+                  </View>
+                </TouchableOpacity>
+              ))}
+            </ScrollView>
+            <View
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+                paddingHorizontal: 10,
+                paddingVertical: 15,
+                fontSize: 16,
+              }}
+            >
+              <Text style={{ color: "red" }}>FLASH SALE</Text>
+              <Text style={{ color: "gray" }}>VIEW ALL</Text>
+            </View>
+            <ScrollView
+              horizontal={true}
+              style={{
+                marginTop: 0,
+                display: "flex",
+                flexDirection: "row",
+                marginLeft: 5.5,
+                marginRight: 5.5,
+              }}
+            >
+              {listFlashSales.map((listFlashSale) => (
+                <TouchableOpacity
+                  key={listFlashSale.id}
+                  style={styles.contentSale}
+                  onPress={() => {
+                    navigation.navigate("Details");
+                  }}
+                >
+                  <Image
+                    source={{
+                      uri: listFlashSale.url,
+                    }}
+                    style={styles.imageContentSale}
+                  />
+                  <View
+                    style={{
+                      right: -58,
+                      top: -135,
+                      backgroundColor: "red",
+                      borderRadius: 15,
+                      height: 16,
+                      width: 26,
+                    }}
+                  >
+                    {/* <Badge value="-10%" status="error" />
+                     */}
+                    <Text
+                      style={{
+                        textAlign: "center",
+                        fontSize: 10,
+                        color: "white",
+                      }}
+                    >
+                      {listFlashSale.sale}
+                    </Text>
+                  </View>
+                  <View style={styles.textContainerSale}>
+                    <Text style={styles.productNameSale}>
+                      {listFlashSale.name}
+                    </Text>
+                    <Text style={styles.priceSale}>{listFlashSale.price}</Text>
+                  </View>
+                </TouchableOpacity>
+              ))}
+            </ScrollView>
+            <View
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "center",
+                paddingHorizontal: 10,
+                paddingVertical: 15,
+                fontSize: 16,
+                backgroundColor: "#FFB6C1",
+                margin: 10,
+                marginBottom: -5,
+                borderRadius: 15,
+              }}
+            >
+              <Text style={{ color: "#fff", fontSize: 20 }}>
+                DAILY DISCOVER
+              </Text>
+            </View>
+            <View
+              style={{
+                marginTop: 10,
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+                flexWrap: "wrap",
+                marginLeft: 5.5,
+                marginRight: 5.5,
+              }}
+            >
+              {listProducts.map((listProduct) => (
+                <TouchableOpacity
+                  key={listProduct.id}
+                  style={styles.contentDiscover}
+                  onPress={() => {
+                    navigation.navigate("Details");
+                  }}
+                >
+                  <Image
+                    source={{
+                      uri: listProduct.url,
+                    }}
+                    style={styles.imageContent}
+                  />
+                  <View style={styles.textContainer}>
+                    <Text style={styles.productName}>{listProduct.name}</Text>
+                    <Text style={styles.price}>{listProduct.price}</Text>
+                    <Text style={styles.discount}>{listProduct.discount}</Text>
+                    <View>
+                      <View
+                        style={{
+                          display: "flex",
+                          flexDirection: "row",
+                          marginTop: 1,
+                        }}
+                      >
+                        <AntDesign name="star" size={13} color="orange" />
+                        <Text
+                          style={{
+                            color: "orange",
+                            fontSize: 12,
+                            marginLeft: 3,
+                          }}
+                        >
+                          {listProduct.star}
+                        </Text>
+                        <Text
+                          style={{
+                            color: "grey",
+                            fontSize: 12,
+                            marginLeft: 50,
+                          }}
+                        >
+                          {"|       "}
+                          {listProduct.sold}
+                        </Text>
+                      </View>
+                      <View
+                        style={{
+                          display: "flex",
+                          flexDirection: "row",
+                          marginTop: 0,
+                          marginLeft: 2,
+                        }}
+                      >
+                        <FontAwesome5
+                          name="map-marker-alt"
+                          size={12}
+                          color="grey"
+                        />
+                        <Text
+                          style={{
+                            color: "grey",
+                            fontSize: 12,
+                            marginLeft: 5,
+                          }}
+                        >
+                          {listProduct.map}
+                        </Text>
+                      </View>
+                    </View>
+                  </View>
+                </TouchableOpacity>
+              ))}
+            </View>
           </View>
         </View>
       </ScrollView>
-      <View
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-between",
-          paddingHorizontal: 10,
-          paddingVertical: 5,
-          fontSize: 16,
-        }}
-      >
-        <Text style={{ color: "pink" }}>NEW ARRIVALS</Text>
-        <Text style={{ color: "gray" }}>VIEW ALL</Text>
-      </View>
-      <View>
-        <View>
-          <ScrollView
-            horizontal={true}
-            style={{
-              marginTop: 10,
-              display: "flex",
-              flexDirection: "row",
-              marginLeft: 5.5,
-              marginRight: 5.5,
-            }}
-          >
-            {listProducts.map((listProduct) => (
-              <TouchableOpacity
-                key={listProduct.id}
-                style={styles.content}
-                onPress={() => {
-                  navigation.navigate("Details");
-                }}
-              >
-                <Image
-                  source={{
-                    uri: listProduct.url,
-                  }}
-                  style={styles.imageContent}
-                />
-                <View style={styles.textContainer}>
-                  <Text style={styles.productName}>{listProduct.name}</Text>
-                  <Text style={styles.price}>{listProduct.price}</Text>
-                  <Text style={styles.discount}>{listProduct.discount}</Text>
-                  <View>
-                    <View
-                      style={{
-                        display: "flex",
-                        flexDirection: "row",
-                        marginTop: 1,
-                      }}
-                    >
-                      <AntDesign name="star" size={13} color="orange" />
-                      <Text
-                        style={{
-                          color: "orange",
-                          fontSize: 12,
-                          marginLeft: 3,
-                        }}
-                      >
-                        {listProduct.star}
-                      </Text>
-                      <Text
-                        style={{
-                          color: "grey",
-                          fontSize: 12,
-                          marginLeft: 50,
-                        }}
-                      >
-                        {"|       "}
-                        {listProduct.sold}
-                      </Text>
-                    </View>
-                    <View
-                      style={{
-                        display: "flex",
-                        flexDirection: "row",
-                        marginTop: 0,
-                        marginLeft: 2,
-                      }}
-                    >
-                      <FontAwesome5
-                        name="map-marker-alt"
-                        size={12}
-                        color="grey"
-                      />
-                      <Text
-                        style={{
-                          color: "grey",
-                          fontSize: 12,
-                          marginLeft: 5,
-                        }}
-                      >
-                        {listProduct.map}
-                      </Text>
-                    </View>
-                  </View>
-                </View>
-              </TouchableOpacity>
-            ))}
-          </ScrollView>
-          <View
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
-              paddingHorizontal: 10,
-              paddingVertical: 15,
-              fontSize: 16,
-            }}
-          >
-            <Text style={{ color: "red" }}>FLASH SALE</Text>
-            <Text style={{ color: "gray" }}>VIEW ALL</Text>
-          </View>
-          <ScrollView
-            horizontal={true}
-            style={{
-              marginTop: 0,
-              display: "flex",
-              flexDirection: "row",
-              marginLeft: 5.5,
-              marginRight: 5.5,
-            }}
-          >
-            {listFlashSales.map((listFlashSale) => (
-              <TouchableOpacity
-                key={listFlashSale.id}
-                style={styles.contentSale}
-                onPress={() => {
-                  navigation.navigate("Details");
-                }}
-              >
-                <Image
-                  source={{
-                    uri: listFlashSale.url,
-                  }}
-                  style={styles.imageContentSale}
-                />
-                <View
-                  style={{
-                    right: -58,
-                    top: -135,
-                    backgroundColor: "red",
-                    borderRadius: 15,
-                    height: 16,
-                    width: 26,
-                  }}
-                >
-                  {/* <Badge value="-10%" status="error" />
-                   */}
-                  <Text
-                    style={{
-                      textAlign: "center",
-                      fontSize: 10,
-                      color: "white",
-                    }}
-                  >
-                    {listFlashSale.sale}
-                  </Text>
-                </View>
-                <View style={styles.textContainerSale}>
-                  <Text style={styles.productNameSale}>
-                    {listFlashSale.name}
-                  </Text>
-                  <Text style={styles.priceSale}>{listFlashSale.price}</Text>
-                </View>
-              </TouchableOpacity>
-            ))}
-          </ScrollView>
-          <View
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "center",
-              paddingHorizontal: 10,
-              paddingVertical: 15,
-              fontSize: 16,
-              backgroundColor: "#FFB6C1",
-              margin: 10,
-              marginBottom: -5,
-              borderRadius: 15,
-            }}
-          >
-            <Text style={{ color: "#fff", fontSize: 20 }}>DAILY DISCOVER</Text>
-          </View>
-          <View
-            style={{
-              marginTop: 10,
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
-              flexWrap: "wrap",
-              marginLeft: 5.5,
-              marginRight: 5.5,
-            }}
-          >
-            {listProducts.map((listProduct) => (
-              <TouchableOpacity
-                key={listProduct.id}
-                style={styles.contentDiscover}
-                onPress={() => {
-                  navigation.navigate("Details");
-                }}
-              >
-                <Image
-                  source={{
-                    uri: listProduct.url,
-                  }}
-                  style={styles.imageContent}
-                />
-                <View style={styles.textContainer}>
-                  <Text style={styles.productName}>{listProduct.name}</Text>
-                  <Text style={styles.price}>{listProduct.price}</Text>
-                  <Text style={styles.discount}>{listProduct.discount}</Text>
-                  <View>
-                    <View
-                      style={{
-                        display: "flex",
-                        flexDirection: "row",
-                        marginTop: 1,
-                      }}
-                    >
-                      <AntDesign name="star" size={13} color="orange" />
-                      <Text
-                        style={{
-                          color: "orange",
-                          fontSize: 12,
-                          marginLeft: 3,
-                        }}
-                      >
-                        {listProduct.star}
-                      </Text>
-                      <Text
-                        style={{
-                          color: "grey",
-                          fontSize: 12,
-                          marginLeft: 50,
-                        }}
-                      >
-                        {"|       "}
-                        {listProduct.sold}
-                      </Text>
-                    </View>
-                    <View
-                      style={{
-                        display: "flex",
-                        flexDirection: "row",
-                        marginTop: 0,
-                        marginLeft: 2,
-                      }}
-                    >
-                      <FontAwesome5
-                        name="map-marker-alt"
-                        size={12}
-                        color="grey"
-                      />
-                      <Text
-                        style={{
-                          color: "grey",
-                          fontSize: 12,
-                          marginLeft: 5,
-                        }}
-                      >
-                        {listProduct.map}
-                      </Text>
-                    </View>
-                  </View>
-                </View>
-              </TouchableOpacity>
-            ))}
-          </View>
-        </View>
-      </View>
-    </ScrollView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
+    flex: 1,
   },
   headerLeft: {
     display: "flex",
