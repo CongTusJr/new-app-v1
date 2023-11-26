@@ -62,6 +62,19 @@ const Home = ({ navigation }) => {
         },
     ];
 
+    //flash sale 
+    const listFlashSales = [
+            {id: 1, name: 'IPhone 15 Pro Max', price : ' 40.990.000 vnđ', url : 'https://cdn1.viettelstore.vn/Images/Product/ProductImage/1921167348.jpeg' },
+            {id: 2, name: 'IPhone 15 Pro Max', price : ' 40.990.000 vnđ', url : 'https://cdn1.viettelstore.vn/Images/Product/ProductImage/1921167348.jpeg' },
+            {id: 3, name: 'IPhone 15 Pro Max', price : ' 40.990.000 vnđ', url : 'https://cdn1.viettelstore.vn/Images/Product/ProductImage/1921167348.jpeg' },
+            {id: 4, name: 'IPhone 15 Pro Max', price : ' 40.990.000 vnđ', url : 'https://cdn1.viettelstore.vn/Images/Product/ProductImage/1921167348.jpeg' },
+            {id: 5, name: 'IPhone 15 Pro Max', price : ' 40.990.000 vnđ', url : 'https://cdn1.viettelstore.vn/Images/Product/ProductImage/1921167348.jpeg' },
+            {id: 6, name: 'IPhone 15 Pro Max', price : ' 40.990.000 vnđ', url : 'https://cdn1.viettelstore.vn/Images/Product/ProductImage/1921167348.jpeg' },
+            {id: 7, name: 'IPhone 15 Pro Max', price : ' 40.990.000 vnđ', url : 'https://cdn1.viettelstore.vn/Images/Product/ProductImage/1921167348.jpeg' },
+            {id: 8, name: 'IPhone 15 Pro Max', price : ' 40.990.000 vnđ', url : 'https://cdn1.viettelstore.vn/Images/Product/ProductImage/1921167348.jpeg' },
+
+    ]
+
     useEffect(() => {
         const interval = setInterval(() => {
             setCurrentIndex((prevIndex) =>
@@ -785,10 +798,11 @@ const Home = ({ navigation }) => {
                             marginRight: 5.5,
                         }}
                     >
+                        {listFlashSales.map(listFlashSale => (
                         <View style={styles.contentSale}>
                             <Image
                                 source={{
-                                    uri: 'https://cdn1.viettelstore.vn/Images/Product/ProductImage/1921167348.jpeg',
+                                    uri: listFlashSale.url,
                                 }}
                                 style={styles.imageContentSale}
                             />
@@ -797,109 +811,20 @@ const Home = ({ navigation }) => {
                             </View>
                             <View style={styles.textContainerSale}>
                                 <Text style={styles.productNameSale}>
-                                    IPhone 15 Pro Max
+                                    {listFlashSale.name}
                                 </Text>
                                 <Text style={styles.priceSale}>
-                                    40.990.000 vnđ
+                                    {listFlashSale.price}
                                 </Text>
                             </View>
                         </View>
-                        <View style={styles.contentSale}>
-                            <Image
-                                source={{
-                                    uri: 'https://cdn1.viettelstore.vn/Images/Product/ProductImage/1921167348.jpeg',
-                                }}
-                                style={styles.imageContentSale}
-                            />
-                            <View style={{ right: -60, top: -137 }}>
-                                <Badge value="-10%" status="error" />
-                            </View>
-                            <View style={styles.textContainerSale}>
-                                <Text style={styles.productNameSale}>
-                                    IPhone 15 Pro Max
-                                </Text>
-                                <Text style={styles.priceSale}>
-                                    40.990.000 vnđ
-                                </Text>
-                            </View>
-                        </View>
-                        <View style={styles.contentSale}>
-                            <Image
-                                source={{
-                                    uri: 'https://cdn1.viettelstore.vn/Images/Product/ProductImage/1921167348.jpeg',
-                                }}
-                                style={styles.imageContentSale}
-                            />
-                            <View style={{ right: -60, top: -137 }}>
-                                <Badge value="-10%" status="error" />
-                            </View>
-                            <View style={styles.textContainerSale}>
-                                <Text style={styles.productNameSale}>
-                                    IPhone 15 Pro Max
-                                </Text>
-                                <Text style={styles.priceSale}>
-                                    40.990.000 vnđ
-                                </Text>
-                            </View>
-                        </View>
-                        <View style={styles.contentSale}>
-                            <Image
-                                source={{
-                                    uri: 'https://cdn1.viettelstore.vn/Images/Product/ProductImage/1921167348.jpeg',
-                                }}
-                                style={styles.imageContentSale}
-                            />
-                            <View style={{ right: -60, top: -137 }}>
-                                <Badge value="-10%" status="error" />
-                            </View>
-                            <View style={styles.textContainerSale}>
-                                <Text style={styles.productNameSale}>
-                                    IPhone 15 Pro Max
-                                </Text>
-                                <Text style={styles.priceSale}>
-                                    40.990.000 vnđ
-                                </Text>
-                            </View>
-                        </View>
-                        <View style={styles.contentSale}>
-                            <Image
-                                source={{
-                                    uri: 'https://cdn1.viettelstore.vn/Images/Product/ProductImage/1921167348.jpeg',
-                                }}
-                                style={styles.imageContentSale}
-                            />
-                            <View style={{ right: -60, top: -137 }}>
-                                <Badge value="-10%" status="error" />
-                            </View>
-                            <View style={styles.textContainerSale}>
-                                <Text style={styles.productNameSale}>
-                                    IPhone 15 Pro Max
-                                </Text>
-                                <Text style={styles.priceSale}>
-                                    40.990.000 vnđ
-                                </Text>
-                            </View>
-                        </View>
-                        <View style={styles.contentSale}>
-                            <Image
-                                source={{
-                                    uri: 'https://cdn1.viettelstore.vn/Images/Product/ProductImage/1921167348.jpeg',
-                                }}
-                                style={styles.imageContentSale}
-                            />
-                            <View style={{ right: -60, top: -137 }}>
-                                <Badge value="-10%" status="error" />
-                            </View>
-                            <View style={styles.textContainerSale}>
-                                <Text style={styles.productNameSale}>
-                                    IPhone 15 Pro Max
-                                </Text>
-                                <Text style={styles.priceSale}>
-                                    40.990.000 vnđ
-                                </Text>
-                            </View>
-                        </View>
+
+                        ))}
+                       
                     </ScrollView>
+
+
+
                     <View
                         style={{
                             display: 'flex',
