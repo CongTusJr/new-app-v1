@@ -275,6 +275,32 @@ const Home = ({ navigation }) => {
       })
   },[])
 
+  //chức nagw tìm kiếm
+  const [search, setSearch] = useState([])
+ useEffect(() => {
+  if (searchText !== undefined && searchText !== "") {
+    fetch(`http://192.168.0.104:4000/api/search/${searchText}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((data) => data.json())
+      .then((data) => {
+   
+        setSearch(data.metadata);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  } else {
+    setSearch([]);
+  }
+}, [searchText]);
+
+
+  console.log(search)
+
   return (
     <View style={styles.container}>
       <Header
@@ -303,6 +329,57 @@ const Home = ({ navigation }) => {
           />
         }
       />
+
+      <View style={{
+        width: 350,
+        height: 300,
+        backgroundColor: "#FFB6C1",
+        borderRadius: 10,
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: 10,
+        position: 'absolute',
+        zIndex: 1,
+        top: 80,
+        right: 30
+      }}>
+        <ScrollView >
+      {search?.map(api => (
+          <TouchableOpacity style={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent:'space-between',
+          alignItems: 'center',
+          width: 320,
+        }}
+                   
+        onPress={() => navigation.navigate("Details", {id: api._id})}
+        >
+            <Image source={{
+              uri: api.img
+            }} 
+              style={{
+                width: 50,
+                height: 50,
+                borderRadius: 10,
+                marginBottom: 10
+              }}
+            />
+            <Text 
+            numberOfLines={1} ellipsizeMode="tail"
+            style={{
+              width: 150,
+         
+            }}>
+              {api.name}
+            </Text>
+            <Text>
+              {api.price}
+            </Text>
+            </TouchableOpacity>
+      ))}
+      </ScrollView>
+      </View>
       <ScrollView>
         <View>
           <FlatList

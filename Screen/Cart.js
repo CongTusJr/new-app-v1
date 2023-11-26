@@ -13,7 +13,7 @@ import { Header } from "@rneui/themed";
 import { AntDesign, Entypo, Ionicons } from "@expo/vector-icons";
 import CheckBox from "react-native-check-box";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import { useFocusEffect } from '@react-navigation/native';
 import { useNavigation } from "@react-navigation/native";
 
 const Cart = () => {
@@ -98,8 +98,9 @@ const Cart = () => {
       };
 
       fetchUserId();
-  }, []);
 
+    
+  }, []);
      console.log({userId})
 
     //xử lý gọi giỏ hàng ra
@@ -113,9 +114,18 @@ const Cart = () => {
           })
     }
 
+        useFocusEffect(
+          React.useCallback(() => {
+            getApi();
+            return () => {
+              // Clean up (nếu cần)
+            };
+          }, [])
+         );
+
     useEffect(() => {
         getApi()
-      },[userId])
+      },[])
 
     //Xử lý thanh toán 
     const HanlerTT =() => {
@@ -149,6 +159,8 @@ const Cart = () => {
         { cancelable: false }
       );
     }
+
+  
 
 
     //Xử lý xóa sản phẩm
