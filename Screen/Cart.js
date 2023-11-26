@@ -12,9 +12,15 @@ import {
 import { Header } from "@rneui/themed";
 import { AntDesign, Entypo, Ionicons } from "@expo/vector-icons";
 import CheckBox from "react-native-check-box";
+
+import { useNavigation } from "@react-navigation/native";
+
 const Cart = () => {
   // const [check1, setCheck1] = useState(false);
-  const [isChecked, setisChecked] = useState(false);
+  const navigation = useNavigation();
+  const [isCheckedAll, setisCheckedAll] = useState(false);
+  const [checkedShops, setCheckedShops] = useState([]);
+  const [checkedItems, setCheckedItems] = useState([]);
   //listShops
   const listShops = [
     {
@@ -24,10 +30,6 @@ const Cart = () => {
     {
       id: 2,
       nameShop: "Celphone S",
-    },
-    {
-      id: 3,
-      nameShop: "CongTusJr 3",
     },
   ];
   const listItemsContents = [
@@ -48,6 +50,61 @@ const Cart = () => {
       productSize: "Gold",
     },
   ];
+  const handleShopCheckboxClick = (shopId) => {
+    setCheckedShops((prevCheckedShops) => {
+      let updatedCheckedShops;
+      if (prevCheckedShops.includes(shopId)) {
+        // Nếu shopId đã tồn tại trong mảng, loại bỏ nó
+        updatedCheckedShops = prevCheckedShops.filter(
+          (shop) => shop !== shopId
+        );
+      } else {
+        // Nếu shopId chưa tồn tại trong mảng, thêm nó vào
+        updatedCheckedShops = [...prevCheckedShops, shopId];
+      }
+
+      // Lấy danh sách các mục trong cửa hàng được chọn
+      const itemsInSelectedShop = listItemsContents
+        .filter((item) => item.id_shop === shopId)
+        .map((item) => item.id);
+
+      // Cập nhật danh sách các mục được chọn bằng cách thêm hoặc loại bỏ tùy thuộc vào việc cửa hàng được chọn hay không
+      setCheckedItems((prevCheckedItems) => {
+        if (prevCheckedShops.includes(shopId)) {
+          // Nếu cửa hàng đã được chọn, loại bỏ tất cả các mục trong cửa hàng đó
+          return prevCheckedItems.filter(
+            (item) => !itemsInSelectedShop.includes(item)
+          );
+        } else {
+          // Nếu cửa hàng chưa được chọn, thêm tất cả các mục trong cửa hàng đó
+          return [...prevCheckedItems, ...itemsInSelectedShop];
+        }
+      });
+
+      return updatedCheckedShops;
+    });
+  };
+
+  const handleItemCheckboxClick = (itemId) => {
+    setCheckedItems((prevCheckedItems) => {
+      if (prevCheckedItems.includes(itemId)) {
+        return prevCheckedItems.filter((item) => item !== itemId);
+      } else {
+        return [...prevCheckedItems, itemId];
+      }
+    });
+  };
+
+  const handleCheckAllClick = () => {
+    setisCheckedAll(!isCheckedAll);
+    if (!isCheckedAll) {
+      setCheckedShops(listShops.map((shop) => shop.id));
+      setCheckedItems(listItemsContents.map((item) => item.id));
+    } else {
+      setCheckedShops([]);
+      setCheckedItems([]);
+    }
+  };
   return (
     <View style={styles.container}>
       <View>
@@ -55,7 +112,7 @@ const Cart = () => {
           backgroundColor="#FFB6C1"
           leftComponent={
             <View style={styles.headerLeft}>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => navigation.push("Home")}>
                 <Ionicons name="md-arrow-back" size={24} color="white" />
               </TouchableOpacity>
             </View>
@@ -80,9 +137,9 @@ const Cart = () => {
             <View key={listShop.id} style={styles.listShop}>
               <View style={styles.nameShop}>
                 <CheckBox
-                  style={[styles.checkBox, {}]}
-                  isChecked={isChecked}
-                  onClick={() => setisChecked(!isChecked)}
+                  style={styles.checkBox}
+                  isChecked={checkedShops.includes(listShop.id)}
+                  onClick={() => handleShopCheckboxClick(listShop.id)}
                   checkBoxColor="white"
                 />
                 <Text style={styles.names}>{listShop.nameShop}</Text>
@@ -93,8 +150,10 @@ const Cart = () => {
                     <View style={styles.items}>
                       <CheckBox
                         style={styles.checkBox}
-                        isChecked={isChecked}
-                        onClick={() => setisChecked(!isChecked)}
+                        isChecked={checkedItems.includes(listItemsContent.id)}
+                        onClick={() =>
+                          handleItemCheckboxClick(listItemsContent.id)
+                        }
                         checkBoxColor="pink"
                       />
                       <Image
@@ -187,8 +246,8 @@ const Cart = () => {
       <View style={styles.footer}>
         <CheckBox
           style={[styles.checkBox, {}]}
-          isChecked={isChecked}
-          onClick={() => setisChecked(!isChecked)}
+          isChecked={isCheckedAll}
+          onClick={handleCheckAllClick}
           checkBoxColor="grey"
         />
         <View

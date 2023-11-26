@@ -273,9 +273,9 @@ const Home = ({ navigation }) => {
         }
         rightComponent={
           <View style={styles.headerRight}>
-            <TouchableOpacity style={{ marginRight: 5 }}>
+            {/* <TouchableOpacity style={{ marginRight: 5 }}>
               <FontAwesome name="filter" size={22} color="white" />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
             <TouchableOpacity style={styles.filterButton}>
               <FontAwesome name="bell" size={22} color="white" />
             </TouchableOpacity>
