@@ -1,16 +1,17 @@
 import { View, Text, TextInput,TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
- function Login({navigation}) {
+ function Singup({navigation}) {
 
     const [email, setEmail] =useState("")
     const [password, setPassword] =useState("")
+    const [Repassword, setRePassword] =useState("")
 
 
- //gửi request lên backend để đăng nhập
+
+    //gửi request lên backend để đăng nhập
     const handlerSubmit = () => {
-        fetch('http://192.168.0.104:4000/api/login', {
+        fetch('http://192.168.0.104:4000/api/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -22,11 +23,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
         })
       .then(response => response.json())
       .then(responseJson => {
-            if (responseJson.mes === 'Đăng nhập thành công') {
-                console.log(responseJson)
+            if (responseJson.mes === 'Đăng ký thành công') {
                 alert(responseJson.mes);
-                 AsyncStorage.setItem( 'id', responseJson.id, );
-                navigation.replace('tab');
+                navigation.navigate('Login');
             } else {
                 alert(responseJson.mes);
             }
@@ -36,6 +35,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
             });
 
     }
+
 
   return (
     <View style={{
@@ -52,7 +52,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
             textAlign: 'center',
             margin: 10,
         }}>
-            Đăng nhập
+            Đăng ký
         </Text>
         <View>
             <Text>
@@ -89,6 +89,25 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
           
           />
         </View>
+         <View>
+            <Text >
+               Nhập lại mật khẩu
+            </Text>
+          <TextInput
+            
+          style={{
+            borderColor: 1,
+            borderWidth: 1,
+            borderColor: 'black',
+            borderRadius: 10,
+            padding: 10,
+            margin: 10,
+            width: 300,
+          }} 
+            onChangeText={(e) => setRePassword(e)}
+          
+          />
+        </View>
         <View>
             <TouchableOpacity style={{
                 backgroundColor: '#FFB6C1',
@@ -105,7 +124,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
                     textAlign: 'center',
                     margin: 10,
                 }}>
-                    Login
+                    Đăng ký
                 </Text>
             </TouchableOpacity>
         </View>
@@ -117,9 +136,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
             <Text>
                 Bạn chưa có tài khoản 
             </Text>
-            <TouchableOpacity 
-             onPress={() => navigation.navigate("Singup")}
-            >
             <Text style={{
                 color: '#FFB6C1',
                 fontWeight: 'bold',
@@ -128,11 +144,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
             }}>
                 Đăng ký
             </Text>
-            </TouchableOpacity>
         </View>
       </View>
     </View>
   )
 }
 
-export default Login;
+export default Singup;

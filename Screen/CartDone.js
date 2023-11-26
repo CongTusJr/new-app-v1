@@ -16,7 +16,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { useNavigation } from "@react-navigation/native";
 
-const Cart = () => {
+const CartDone = () => {
   // const [check1, setCheck1] = useState(false);
   const navigation = useNavigation();
   const [isCheckedAll, setisCheckedAll] = useState(false);
@@ -82,41 +82,23 @@ const Cart = () => {
 
    //lấy id của ng đnăg nhập
      const [userId, setUserId] = useState();
-       const [apis, setApi] = useState([])
-
-     useEffect(() => {
-        const fetchUserId = async () => {
-        try {
-          const res = await AsyncStorage.getItem('id');
-          if (res) {
-            setUserId(res);
-            getApi(res);
-          }
-        } catch (error) {
-          console.error('Error fetching user ID:', error);
-        }
-      };
-
-      fetchUserId();
-  }, []);
+     AsyncStorage.getItem('id').then((res) => setUserId(res));
 
      console.log({userId})
 
     //xử lý gọi giỏ hàng ra
-    const getApi = ()=>{
-       fetch(`http://192.168.0.104:4000/api/getlisttocart/${userId}`) //chú ý đổi mạng của chính bản thân
+       const [apis, setApi] = useState([])
+      useEffect(() => {
+          fetch(`http://192.168.0.104:4000/api/getListToCartByTT/${userId}`) //chú ý đổi mạng của chính bản thân
           .then(data => {
             return data.json()
           })
           .then(data => {
             setApi(data)
           })
-    }
-
-    useEffect(() => {
-        getApi()
       },[userId])
 
+      console.log({apis})
     //Xử lý thanh toán 
     const HanlerTT =() => {
       Alert.alert(
@@ -137,7 +119,6 @@ const Cart = () => {
         })
             .then(response => response.json())
             .then(responseJson => {
-              getApi()
                 alert(responseJson.mes);
             })
             .catch(error => {
@@ -148,26 +129,6 @@ const Cart = () => {
         ],
         { cancelable: false }
       );
-    }
-
-
-    //Xử lý xóa sản phẩm
-    const handleDelete = (id) => {
-        fetch(`http://192.168.0.104:4000/api/deletecart/${id}`, {
-            method: 'delete',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-           
-        })
-            .then(response => response.json())
-            .then(responseJson => {
-              getApi()
-                alert(responseJson.mes);
-            })
-            .catch(error => {
-               console.log(error);
-            });
     }
 
   return (
@@ -200,11 +161,7 @@ const Cart = () => {
         <View style={styles.listContent}>
             <View  style={styles.listShop}>
              
-              {apis.length ==0 ? 
-                <Text>
-                    Hiện Chưa có đơn hàng nào
-                </Text> :
-              apis?.map((listItemsContent) => (
+              {apis?.map((listItemsContent) => (
                 <View key={listItemsContent._id} style={styles.listItemsContent}>
                   <View style={styles.listItems}>
                     <View style={styles.items}>
@@ -223,7 +180,7 @@ const Cart = () => {
                         style={styles.imageContent}
                       />
                     </View>
-                    <View style={styles.items2} >
+                    <View style={styles.items2}>
                       <View style={styles.viewProduct}>
                         <Text style={styles.productName}>
                           {listItemsContent.productName}
@@ -261,9 +218,6 @@ const Cart = () => {
                           {listItemsContent.price}
                         </Text>
                       </View>
-                    <TouchableOpacity onPress={() => handleDelete(listItemsContent._id)}>
-                             <Ionicons name="ios-trash-bin" size={22} color="white" />
-                      </TouchableOpacity>
                     </View>
                   </View>
                   <View style={styles.productVNum}>
@@ -406,9 +360,6 @@ const styles = StyleSheet.create({
   items2: {
     marginTop: 10,
     width: "70%",
-    display: 'flex',
-    flexDirection: "row",
-    justifyContent: "space-around",
   },
   checkBox: {
     padding: 5,
@@ -493,4 +444,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Cart;
+export default CartDone;
