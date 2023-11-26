@@ -1,6 +1,9 @@
+import React from "react";
+
 import { createStackNavigator } from "@react-navigation/stack";
-import Home from "../Screen/Home";
 import ProductDetails from "../Screen/ProductDetails";
+import Home from "../Screen/Home";
+import CartDone from "../Screen/CartDone";
 
 const Stack = createStackNavigator();
 
@@ -17,15 +20,13 @@ function StackHome() {
       <Stack.Screen
         name="Details"
         component={ProductDetails}
-        options={{
-          headerShown: false,
-        }}
-      />
-      {/* <Stack.Screen
-        name="Details"
-        component={productDetails}
         options={{ headerShown: false }}
-      /> */}
+      />
+      <Stack.Screen
+        name="CartDone"
+        component={CartDone}
+        options={{ headerShown: false }}
+      />
     </Stack.Navigator>
   );
 }

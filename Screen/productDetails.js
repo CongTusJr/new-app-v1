@@ -1,5 +1,5 @@
 // import React from "react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import {
   View,
@@ -15,6 +15,9 @@ import {
 import { ScrollView } from "react-native-gesture-handler";
 import { AntDesign, Entypo, Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import { useRoute } from "@react-navigation/native";
+
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const ProductDetails = () => {
   const navigation = useNavigation();
@@ -53,6 +56,53 @@ const ProductDetails = () => {
       setQuantity(quantity - 1);
     }
   };
+
+  //Lấy id khi click từ trang home
+  const route = useRoute();
+  const id = route.params?.id;
+  //gọi api để lấy ra từng phần tử 1
+  const [apis, setApi] = useState();
+  useEffect(() => {
+    fetch(`http://192.168.19.5:4000/api/getdetail/${id}`) //chú ý đổi mạng của chính bản thân
+      .then((data) => {
+        return data.json();
+      })
+      .then((data) => {
+        setApi(data);
+      });
+  }, []);
+
+  //lấy id của ng đnăg nhập
+  const [userId, setUserId] = useState();
+  AsyncStorage.getItem("id").then((res) => setUserId(res));
+
+  //xử lý khi click để thêm vào sản phẩm
+  const handleAddCart = () => {
+    // console.log('abc')
+    fetch("http://192.168.19.5:4000/api/addtocart", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        productId: apis._id,
+        userid: userId,
+        img: apis.img,
+        nameproduct: apis.name,
+        price: apis.price,
+        status: false,
+        quantity: quantity,
+      }),
+    })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        alert(responseJson.mes);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <View style={{ flex: 1 }}>
       <ScrollView style={styles.container}>
@@ -60,7 +110,7 @@ const ProductDetails = () => {
         <View style={styles.imagesDetails}>
           <Image
             source={{
-              uri: "https://cdn1.viettelstore.vn/Images/Product/ProductImage/1921167348.jpeg",
+              uri: apis?.img,
             }}
             style={styles.imageDetails}
           />
@@ -73,7 +123,7 @@ const ProductDetails = () => {
         </View>
         <View style={{ margin: 10 }}>
           <View style={styles.nameDetails}>
-            <Text style={styles.nameDetail}>Apple IPhone 15 Pro Max </Text>
+            <Text style={styles.nameDetail}>{apis?.name} </Text>
             <View style={{ flexDirection: "row", marginTop: 5 }}>
               <AntDesign name="star" size={15} color="orange" />
               <Text
@@ -90,7 +140,7 @@ const ProductDetails = () => {
                 {"  |    "}20 Đã bán
               </Text>
             </View>
-            <Text style={styles.price}>40.990.000 vnđ</Text>
+            <Text style={styles.price}>{apis?.price} vnđ</Text>
             <Text style={styles.discount}>50.000.000 vnđ</Text>
           </View>
 
@@ -132,8 +182,9 @@ const ProductDetails = () => {
             ĐẶC ĐIỂM NỔI BẬT
           </Text>
           <Text style={styles.describeText}>
-            • Thiết kế khung viền từ titan chuẩn hàng không vũ trụ - Cực nhẹ,
-            bền cùng viền cạnh mỏng cầm nắm thoải mái
+            {/* • Thiết kế khung viền từ titan chuẩn hàng không vũ trụ - Cực nhẹ,
+            bền cùng viền cạnh mỏng cầm nắm thoảiƯ mái */}
+            {apis?.description}
           </Text>
           <Text style={styles.describeText}>
             • Hiệu năng Pro chiến game thả ga - Chip A17 Pro mang lại hiệu năng
@@ -233,7 +284,7 @@ const ProductDetails = () => {
           <Button
             color="pink"
             title="Add to cart"
-            onPress={() => Alert.alert("Right button pressed")}
+            onPress={() => handleAddCart()}
           />
         </View>
       </View>

@@ -2,7 +2,8 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 
 import TabButtomScreen from "./TabButtomScreen";
-import Login from "../Screen/Login";
+import LoginScreen from "../Screen/Login";
+import Singup from "../Screen/Singup";
 
 const Stack = createStackNavigator();
 
@@ -17,7 +18,9 @@ function StackScreen() {
             headerShown: false,
           }}
         />
-        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="Singup" component={Singup} />
+
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -16,7 +16,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { useNavigation } from "@react-navigation/native";
 
-const Cart = () => {
+const CartDone = () => {
   // const [check1, setCheck1] = useState(false);
   const navigation = useNavigation();
   const [isCheckedAll, setisCheckedAll] = useState(false);
@@ -81,41 +81,23 @@ const Cart = () => {
 
   //lấy id của ng đnăg nhập
   const [userId, setUserId] = useState();
-  const [apis, setApi] = useState([]);
-
-  useEffect(() => {
-    const fetchUserId = async () => {
-      try {
-        const res = await AsyncStorage.getItem("id");
-        if (res) {
-          setUserId(res);
-          getApi(res);
-        }
-      } catch (error) {
-        console.error("Error fetching user ID:", error);
-      }
-    };
-
-    fetchUserId();
-  }, []);
+  AsyncStorage.getItem("id").then((res) => setUserId(res));
 
   console.log({ userId });
 
   //xử lý gọi giỏ hàng ra
-  const getApi = () => {
-    fetch(`http://192.168.19.5:4000/api/getlisttocart/${userId}`) //chú ý đổi mạng của chính bản thân
+  const [apis, setApi] = useState([]);
+  useEffect(() => {
+    fetch(`http://192.168.19.5:4000/api/getListToCartByTT/${userId}`) //chú ý đổi mạng của chính bản thân
       .then((data) => {
         return data.json();
       })
       .then((data) => {
         setApi(data);
       });
-  };
-
-  useEffect(() => {
-    getApi();
   }, [userId]);
 
+  console.log({ apis });
   //Xử lý thanh toán
   const HanlerTT = () => {
     Alert.alert(
@@ -136,7 +118,6 @@ const Cart = () => {
             })
               .then((response) => response.json())
               .then((responseJson) => {
-                getApi();
                 alert(responseJson.mes);
               })
               .catch((error) => {
@@ -147,24 +128,6 @@ const Cart = () => {
       ],
       { cancelable: false }
     );
-  };
-
-  //Xử lý xóa sản phẩm
-  const handleDelete = (id) => {
-    fetch(`http://192.168.19.5:4000/api/deletecart/${id}`, {
-      method: "delete",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((responseJson) => {
-        getApi();
-        alert(responseJson.mes);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
   };
 
   return (
@@ -196,115 +159,99 @@ const Cart = () => {
       <ScrollView>
         <View style={styles.listContent}>
           <View style={styles.listShop}>
-            {apis.length == 0 ? (
-              <Text>Hiện Chưa có đơn hàng nào</Text>
-            ) : (
-              apis?.map((listItemsContent) => (
-                <View
-                  key={listItemsContent._id}
-                  style={styles.listItemsContent}
-                >
-                  <View style={styles.listItems}>
-                    <View style={styles.items}>
-                      <CheckBox
-                        style={styles.checkBox}
-                        isChecked={checkedItems.includes(listItemsContent.id)}
-                        onClick={() =>
-                          handleItemCheckboxClick(listItemsContent.id)
-                        }
-                        checkBoxColor="pink"
-                      />
-                      <Image
-                        source={{
-                          uri: listItemsContent.img,
-                        }}
-                        style={styles.imageContent}
-                      />
-                    </View>
-                    <View style={styles.items2}>
-                      <View style={styles.viewProduct}>
-                        <Text style={styles.productName}>
-                          {listItemsContent.productName}
-                        </Text>
+            {apis?.map((listItemsContent) => (
+              <View key={listItemsContent._id} style={styles.listItemsContent}>
+                <View style={styles.listItems}>
+                  <View style={styles.items}>
+                    <CheckBox
+                      style={styles.checkBox}
+                      isChecked={checkedItems.includes(listItemsContent.id)}
+                      onClick={() =>
+                        handleItemCheckboxClick(listItemsContent.id)
+                      }
+                      checkBoxColor="pink"
+                    />
+                    <Image
+                      source={{
+                        uri: listItemsContent.img,
+                      }}
+                      style={styles.imageContent}
+                    />
+                  </View>
+                  <View style={styles.items2}>
+                    <View style={styles.viewProduct}>
+                      <Text style={styles.productName}>
+                        {listItemsContent.productName}
+                      </Text>
 
-                        <View style={styles.productSize}>
-                          <Text
-                            style={{
-                              textAlign: "center",
-                              color: "pink",
-                              marginLeft: 4,
-                              fontSize: 13,
-                            }}
-                          >
-                            Phân loại:
-                          </Text>
-                          <Text
-                            style={{
-                              textAlign: "center",
-                              color: "pink",
-                              marginLeft: 4,
-                              fontSize: 13,
-                            }}
-                          >
-                            {listItemsContent.productSize}
-                          </Text>
-                          <Entypo name="chevron-down" size={20} color="pink" />
-                        </View>
-                        <View style={styles.productDay}>
-                          <Text style={styles.productday}>
-                            7 ngày miễn phí trả hàng
-                          </Text>
-                        </View>
-                        <Text style={styles.productPrice}>
-                          {listItemsContent.price}
+                      <View style={styles.productSize}>
+                        <Text
+                          style={{
+                            textAlign: "center",
+                            color: "pink",
+                            marginLeft: 4,
+                            fontSize: 13,
+                          }}
+                        >
+                          Phân loại:
+                        </Text>
+                        <Text
+                          style={{
+                            textAlign: "center",
+                            color: "pink",
+                            marginLeft: 4,
+                            fontSize: 13,
+                          }}
+                        >
+                          {listItemsContent.productSize}
+                        </Text>
+                        <Entypo name="chevron-down" size={20} color="pink" />
+                      </View>
+                      <View style={styles.productDay}>
+                        <Text style={styles.productday}>
+                          7 ngày miễn phí trả hàng
                         </Text>
                       </View>
-                      <TouchableOpacity
-                        onPress={() => handleDelete(listItemsContent._id)}
-                      >
-                        <Ionicons
-                          name="ios-trash-bin"
-                          size={22}
-                          color="white"
-                        />
-                      </TouchableOpacity>
-                    </View>
-                  </View>
-                  <View style={styles.productVNum}>
-                    <View style={styles.productNum}>
-                      <Text
-                        style={{
-                          textAlign: "center",
-                          color: "grey",
-                        }}
-                      >
-                        -
-                      </Text>
-                    </View>
-                    <View style={styles.productNum}>
-                      <Text
-                        style={{
-                          textAlign: "center",
-                          color: "grey",
-                        }}
-                      >
-                        {listItemsContent.quantity}
-                      </Text>
-                    </View>
-                    <View style={styles.productNum}>
-                      <Text
-                        style={{
-                          textAlign: "center",
-                          color: "grey",
-                        }}
-                      >
-                        +
+                      <Text style={styles.productPrice}>
+                        {listItemsContent.price}
                       </Text>
                     </View>
                   </View>
                 </View>
-              ))
-            )}
+                <View style={styles.productVNum}>
+                  <View style={styles.productNum}>
+                    <Text
+                      style={{
+                        textAlign: "center",
+                        color: "grey",
+                      }}
+                    >
+                      -
+                    </Text>
+                  </View>
+                  <View style={styles.productNum}>
+                    <Text
+                      style={{
+                        textAlign: "center",
+                        color: "grey",
+                      }}
+                    >
+                      {listItemsContent.quantity}
+                    </Text>
+                  </View>
+                  <View style={styles.productNum}>
+                    <Text
+                      style={{
+                        textAlign: "center",
+                        color: "grey",
+                      }}
+                    >
+                      +
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            ))}
             <View style={{ height: 10 }}></View>
           </View>
         </View>
@@ -407,9 +354,6 @@ const styles = StyleSheet.create({
   items2: {
     marginTop: 10,
     width: "70%",
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-around",
   },
   checkBox: {
     padding: 5,
@@ -494,4 +438,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Cart;
+export default CartDone;

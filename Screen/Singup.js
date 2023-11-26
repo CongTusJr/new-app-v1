@@ -1,14 +1,14 @@
 import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
-function Login({ navigation }) {
+function Singup({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [Repassword, setRePassword] = useState("");
 
   //gửi request lên backend để đăng nhập
   const handlerSubmit = () => {
-    fetch("http://192.168.19.5:4000/api/login", {
+    fetch("http://192.168.19.5:4000/api/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -20,11 +20,9 @@ function Login({ navigation }) {
     })
       .then((response) => response.json())
       .then((responseJson) => {
-        if (responseJson.mes === "Đăng nhập thành công") {
-          console.log(responseJson);
+        if (responseJson.mes === "Đăng ký thành công") {
           alert(responseJson.mes);
-          AsyncStorage.setItem("id", responseJson.id);
-          navigation.replace("tab");
+          navigation.navigate("Login");
         } else {
           alert(responseJson.mes);
         }
@@ -53,7 +51,7 @@ function Login({ navigation }) {
             margin: 10,
           }}
         >
-          Login
+          Sign Up
         </Text>
         <View>
           <Text>Email:</Text>
@@ -89,6 +87,23 @@ function Login({ navigation }) {
           />
         </View>
         <View>
+          <Text>Retype Pasword:</Text>
+          <TextInput
+            placeholder="Retype Pasword"
+            secureTextEntry={true}
+            style={{
+              borderColor: 1,
+              borderWidth: 1,
+              borderColor: "black",
+              borderRadius: 10,
+              padding: 10,
+              margin: 10,
+              width: 300,
+            }}
+            onChangeText={(e) => setRePassword(e)}
+          />
+        </View>
+        <View>
           <TouchableOpacity
             style={{
               backgroundColor: "#FFB6C1",
@@ -107,7 +122,7 @@ function Login({ navigation }) {
                 margin: 10,
               }}
             >
-              Login
+              Sign Up
             </Text>
           </TouchableOpacity>
         </View>
@@ -118,8 +133,8 @@ function Login({ navigation }) {
             alignItems: "center",
           }}
         >
-          <Text>Don't have an account?</Text>
-          <TouchableOpacity onPress={() => navigation.navigate("Singup")}>
+          <Text>Already have an account? </Text>
+          <TouchableOpacity onPress={() => navigation.navigate("Login")}>
             <Text
               style={{
                 color: "#FFB6C1",
@@ -128,7 +143,7 @@ function Login({ navigation }) {
                 margin: 10,
               }}
             >
-              Sign Up
+              Login
             </Text>
           </TouchableOpacity>
         </View>
@@ -137,4 +152,4 @@ function Login({ navigation }) {
   );
 }
 
-export default Login;
+export default Singup;

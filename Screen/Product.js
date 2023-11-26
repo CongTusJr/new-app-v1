@@ -1,13 +1,17 @@
 import { View, Text } from "react-native";
-import React from "react";
-import { Animated } from "react-native";
+import React, { useEffect } from "react";
 
-const av = new Animated.Value(0);
-av.addListener(() => {
-  console.log("anbc");
-  return;
-});
 const Product = () => {
+  useEffect(() => {
+    fetch("http://192.168.19.5:3000/test")
+      .then((data) => {
+        return data.json();
+      })
+      .then((data) => {
+        console.log(data);
+      });
+  }, []);
+
   return (
     <View>
       <Text>Product</Text>
