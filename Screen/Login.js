@@ -156,7 +156,7 @@ function Login({ navigation }) {
           }}
         >
           <Text>Don't have an account?</Text>
-          <TouchableOpacity onPress={() => navigation.navigate("Singup")}>
+          <TouchableOpacity onPress={() => navigation.navigate("Signup")}>
             <Text
               style={{
                 color: "#FFB6C1",

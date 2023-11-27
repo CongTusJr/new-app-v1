@@ -98,9 +98,9 @@ const Cart = () => {
 
     fetchUserId();
   }, []);
-  console.log({ userId });
 
   //xử lý gọi giỏ hàng ra
+  const [tong, setTong] = useState(0);
   const getApi = () => {
     fetch(`http://192.168.19.5:4000/api/getlisttocart/${userId}`) //chú ý đổi mạng của chính bản thân
       .then((data) => {
@@ -108,6 +108,10 @@ const Cart = () => {
       })
       .then((data) => {
         setApi(data);
+        let total = data.reduce(function (sum, product) {
+          return sum + product.price * product.quantity;
+        }, 0);
+        setTong(total);
       });
   };
 
@@ -120,9 +124,11 @@ const Cart = () => {
     }, [])
   );
 
+  // console.log({ apis });
+
   useEffect(() => {
     getApi();
-  }, []);
+  }, [userId]);
 
   //Xử lý thanh toán
   const HanlerTT = () => {
@@ -144,8 +150,14 @@ const Cart = () => {
             })
               .then((response) => response.json())
               .then((responseJson) => {
-                getApi();
-                alert(responseJson.mes);
+                fetch(`http://192.168.19.5:4000/api/getlisttocart/${userId}`) //chú ý đổi mạng của chính bản thân
+                  .then((data) => {
+                    return data.json();
+                  })
+                  .then((data) => {
+                    setApi(data);
+                    alert(responseJson.mes);
+                  });
               })
               .catch((error) => {
                 console.log(error);
@@ -192,13 +204,13 @@ const Cart = () => {
               <Text style={styles.textHeader}>Your Cart</Text>
             </View>
           }
-          rightComponent={
-            <View style={styles.headerRight}>
-              <TouchableOpacity style={{ marginRight: 5 }}>
-                <Ionicons name="ios-trash-bin" size={22} color="white" />
-              </TouchableOpacity>
-            </View>
-          }
+          // rightComponent={
+          //   <View style={styles.headerRight}>
+          //     <TouchableOpacity style={{ marginRight: 5 }}>
+          //       <Ionicons name="ios-trash-bin" size={22} color="white" />
+          //     </TouchableOpacity>
+          //   </View>
+          // }
         />
       </View>
       <ScrollView>
@@ -209,11 +221,11 @@ const Cart = () => {
                 style={{
                   textAlign: "center",
                   paddingVertical: 20,
-                  fontSize: 20,
                   color: "#fff",
+                  fontSize: 20,
                 }}
               >
-                Hiện Chưa có đơn hàng nào.
+                Hiện chưa có đơn hàng nào
               </Text>
             ) : (
               apis?.map((listItemsContent) => (
@@ -240,47 +252,33 @@ const Cart = () => {
                     </View>
                     <View style={styles.items2}>
                       <View style={styles.viewProduct}>
-                        <Text style={styles.productName}>
-                          {listItemsContent.productName}
+                        <Text
+                          numberOfLines={2}
+                          ellipsizeMode="tail"
+                          style={{
+                            width: 220,
+                          }}
+                        >
+                          {listItemsContent.nameproduct}
                         </Text>
 
-                        <View style={styles.productSize}>
-                          <Text
-                            style={{
-                              textAlign: "center",
-                              color: "pink",
-                              marginLeft: 4,
-                              fontSize: 13,
-                            }}
-                          >
-                            Phân loại:
-                          </Text>
-                          <Text
-                            style={{
-                              textAlign: "center",
-                              color: "pink",
-                              marginLeft: 4,
-                              fontSize: 13,
-                            }}
-                          >
-                            {listItemsContent.productSize}
-                          </Text>
-                          <Entypo name="chevron-down" size={20} color="pink" />
-                        </View>
                         <View style={styles.productDay}>
                           <Text style={styles.productday}>
                             7 ngày miễn phí trả hàng
                           </Text>
                         </View>
-                        <Text style={styles.productPrice}>
-                          {listItemsContent.price}
-                        </Text>
+                        <View style={{ flexDirection: "row" }}>
+                          <Text style={styles.productPrice}>
+                            {listItemsContent.price}
+                          </Text>
+                          <Text style={styles.productPrice}> vnđ</Text>
+                        </View>
                       </View>
                     </View>
                     <TouchableOpacity
                       onPress={() => handleDelete(listItemsContent._id)}
                     >
-                      <Ionicons name="ios-trash-bin" size={22} color="white" />
+                      <Ionicons name="ios-trash-bin" size={22} color="pink" />
                     </TouchableOpacity>
                   </View>
                   <View style={styles.productVNum}>
@@ -332,17 +330,10 @@ const Cart = () => {
             justifyContent: "space-between",
           }}
         >
-          <Text
-            style={{
-              color: "grey",
-              textAlign: "center",
-              marginLeft: 30,
-              fontSize: 20,
-            }}
-          >
-            Total:
+          <Text style={{ color: "grey", textAlign: "center", marginLeft: 20 }}>
+            Tổng thanh toán:
           </Text>
-          <Text style={{ color: "red", fontSize: 20 }}>100.000.000 vnđ</Text>
+          <Text style={{ color: "red" }}>{tong} vnđ</Text>
         </View>
         <View style={styles.footerButton}>
           <Button color="pink" title="Check Out" onPress={() => HanlerTT()} />
@@ -404,8 +395,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFE4E1",
     borderRadius: 15,
     flexDirection: "row",
-    justifyContent: "space-between",
-    // alignItems: "center",
+    alignItems: "center",
   },
   items: {
     marginTop: 10,
@@ -419,10 +409,10 @@ const styles = StyleSheet.create({
   },
   items2: {
     marginTop: 10,
-    width: "60%",
+    width: 220,
     display: "flex",
     flexDirection: "row",
-    justifyContent: "space-around",
+    // justifyContent: "space-around",
   },
   checkBox: {
     padding: 5,
@@ -456,6 +446,7 @@ const styles = StyleSheet.create({
     borderColor: "red",
     width: 100,
     borderRadius: 5,
+    marginTop: 5,
   },
   productday: {
     color: "red",
@@ -463,7 +454,7 @@ const styles = StyleSheet.create({
     padding: 2,
     textAlign: "center",
   },
-  productPrice: { color: "red", marginTop: 3 },
+  productPrice: { color: "red", marginTop: 5, fontSize: 20 },
   productVNum: {
     display: "flex",
     flexDirection: "row",

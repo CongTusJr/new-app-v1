@@ -52,16 +52,28 @@ const Home = ({ navigation }) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const data = [
     {
-      uri: "https://baotinmobile.vn/uploads/2023/09/banner-15promax-baotin.jpg.webp",
+      uri: "https://nganphatthinh.com.vn/wp-content/uploads/2022/02/banner-home-2.jpg",
     },
     {
-      uri: "https://baotinmobile.vn/uploads/2023/09/banner-15.jpg.webp",
+      uri: "https://nganphatthinh.com.vn/wp-content/uploads/2022/02/banner.png",
     },
     {
-      uri: "https://baotinmobile.vn/uploads/2023/06/sl-iphone-14.jpg.webp",
+      uri: "https://gagoinem.com/wp-content/uploads/Cung-cap-si-le-ga-goi-nem-1.jpg",
     },
     {
-      uri: "https://baotinmobile.vn/uploads/2023/03/sl-iphone-13-promax.jpg.webp",
+      uri: "https://goiyte.com/wp-content/uploads/elementor/thumbs/banner1-jpg-qcaj7e75oil5p0sc6g5v5f44l4mpj6gzorbmezxjrg.webp",
+    },
+    {
+      uri: "https://chumy.vn/wp-content/uploads/chan-ga-goi-khach-san-CHUMY-BN1.jpg",
+    },
+    {
+      uri: "https://vuanem.com/image/L/B9gzgRs70ElZtPIn6pERa5tbpueUpQHTdc2wCiXc.webp",
+    },
+    {
+      uri: "https://vuanem.com/image/L/t43vmVdWq00jptivQ0oUHCpan0bKpvuCEmyQK2pv.jpg",
+    },
+    {
+      uri: "https://vuanem.com/image/L/LCIzWAUL1TV4Ecg4Ie1qPXo8H4d5RrKhylWb5xYQ.jpg",
     },
   ];
 
@@ -131,8 +143,6 @@ const Home = ({ navigation }) => {
     }
   }, [searchText]);
 
-  // console.log(search);
-
   return (
     <View style={styles.container}>
       <Header
@@ -144,19 +154,19 @@ const Home = ({ navigation }) => {
             </TouchableOpacity>
           </View>
         }
-        rightComponent={
-          <View style={styles.headerRight}>
-            {/* <TouchableOpacity style={{ marginRight: 5 }}>
-              <FontAwesome name="filter" size={22} color="white" />
-            </TouchableOpacity> */}
-            <TouchableOpacity
-              style={styles.filterButton}
-              onPress={() => navigation.navigate("CartDone")}
-            >
-              <FontAwesome name="bell" size={22} color="white" />
-            </TouchableOpacity>
-          </View>
-        }
+        // rightComponent={
+        //   <View style={styles.headerRight}>
+        //     {/* <TouchableOpacity style={{ marginRight: 5 }}>
+        //       <FontAwesome name="filter" size={22} color="white" />
+        //     </TouchableOpacity> */}
+        //     <TouchableOpacity
+        //       style={styles.filterButton}
+        //       onPress={() => navigation.navigate("CartDone")}
+        //     >
+        //       <FontAwesome name="bell" size={22} color="white" />
+        //     </TouchableOpacity>
+        //   </View>
+        // }
         centerComponent={
           <SearchBar
             value={searchText}
@@ -164,60 +174,61 @@ const Home = ({ navigation }) => {
           />
         }
       />
-
-      <View
-        style={{
-          width: 350,
-          height: 300,
-          backgroundColor: "#FFB6C1",
-          borderRadius: 10,
-          justifyContent: "center",
-          alignItems: "center",
-          marginTop: 10,
-          position: "absolute",
-          zIndex: 1,
-          top: 80,
-          right: 30,
-        }}
-      >
-        <ScrollView>
-          {search?.map((api) => (
-            <TouchableOpacity
-              key={api._id}
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-between",
-                alignItems: "center",
-                width: 320,
-              }}
-              onPress={() => navigation.navigate("Details", { id: api._id })}
-            >
-              <Image
-                source={{
-                  uri: api.img,
-                }}
+      {searchText !== undefined && searchText !== "" ? (
+        <View
+          style={{
+            width: 350,
+            height: 300,
+            backgroundColor: "#FFB6C1",
+            borderRadius: 10,
+            justifyContent: "center",
+            alignItems: "center",
+            marginTop: 10,
+            position: "absolute",
+            zIndex: 1,
+            top: 80,
+            right: 30,
+          }}
+        >
+          <ScrollView>
+            {search?.map((api) => (
+              <TouchableOpacity
+                key={api._id}
                 style={{
-                  width: 50,
-                  height: 50,
-                  borderRadius: 10,
-                  marginBottom: 10,
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  width: 320,
                 }}
-              />
-              <Text
-                numberOfLines={1}
-                ellipsizeMode="tail"
-                style={{
-                  width: 150,
-                }}
+                onPress={() => navigation.navigate("Details", { id: api._id })}
               >
-                {api.name}
-              </Text>
-              <Text>{api.price}</Text>
-            </TouchableOpacity>
-          ))}
-        </ScrollView>
-      </View>
+                <Image
+                  source={{
+                    uri: api.img,
+                  }}
+                  style={{
+                    width: 50,
+                    height: 50,
+                    borderRadius: 10,
+                    marginBottom: 10,
+                  }}
+                />
+                <Text
+                  numberOfLines={1}
+                  ellipsizeMode="tail"
+                  style={{
+                    width: 150,
+                  }}
+                >
+                  {api.name}
+                </Text>
+                <Text>{api.price}</Text>
+              </TouchableOpacity>
+            ))}
+          </ScrollView>
+        </View>
+      ) : null}
       <ScrollView>
         <View>
           <FlatList
@@ -257,8 +268,8 @@ const Home = ({ navigation }) => {
         </View>
 
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          <View>
-            <View
+          {/* <View> */}
+          {/* <View
               style={{
                 display: "flex",
                 flexDirection: "row",
@@ -268,7 +279,7 @@ const Home = ({ navigation }) => {
             >
               {buttons.map((button) => (
                 <TouchableOpacity
-                  key={button.id}
+                  key={button._id}
                   onPress={() => handleButtonClick(button.id)}
                   style={[
                     styles.button,
@@ -296,8 +307,8 @@ const Home = ({ navigation }) => {
                   </Text>
                 </TouchableOpacity>
               ))}
-            </View>
-          </View>
+            </View> */}
+          {/* </View> */}
         </ScrollView>
         <View
           style={{
@@ -339,15 +350,28 @@ const Home = ({ navigation }) => {
                     style={styles.imageContent}
                   />
                   <View style={styles.textContainer}>
-                    <Text style={styles.productName}>{listProduct.name}</Text>
-                    <Text style={styles.price}>{listProduct.price}</Text>
-                    <Text style={styles.discount}>{listProduct.discount}</Text>
+                    <Text
+                      numberOfLines={2}
+                      ellipsizeMode="tail"
+                      style={{
+                        width: 150,
+                        fontSize: 16,
+                      }}
+                    >
+                      {listProduct.name}
+                    </Text>
+                    <View style={{ flexDirection: "row" }}>
+                      <Text style={styles.price}>{listProduct.price}</Text>
+                      <Text style={styles.price}> vnđ</Text>
+                    </View>
+                    {/* <Text style={styles.discount}>{listProduct.discount}</Text> */}
                     <View>
                       <View
                         style={{
                           display: "flex",
                           flexDirection: "row",
-                          marginTop: 1,
+                          marginTop: 5,
+                          justifyContent: "space-around",
                         }}
                       >
                         <AntDesign name="star" size={13} color="orange" />
@@ -358,7 +382,7 @@ const Home = ({ navigation }) => {
                             marginLeft: 3,
                           }}
                         >
-                          {listProduct.star}
+                          4,5
                         </Text>
                         <Text
                           style={{
@@ -368,7 +392,8 @@ const Home = ({ navigation }) => {
                           }}
                         >
                           {"|       "}
-                          {listProduct.sold}
+                          {/* {listProduct.sold} */}
+                          20 đã bán
                         </Text>
                       </View>
                       <View
@@ -377,6 +402,7 @@ const Home = ({ navigation }) => {
                           flexDirection: "row",
                           marginTop: 0,
                           marginLeft: 2,
+                          marginTop: 10,
                         }}
                       >
                         <FontAwesome5
@@ -388,10 +414,11 @@ const Home = ({ navigation }) => {
                           style={{
                             color: "grey",
                             fontSize: 12,
-                            marginLeft: 5,
+                            marginLeft: 3,
                           }}
                         >
-                          {listProduct.map}
+                          {/* {listProduct.map} */}
+                          Hà nội
                         </Text>
                       </View>
                     </View>
@@ -446,8 +473,6 @@ const Home = ({ navigation }) => {
                       width: 26,
                     }}
                   >
-                    {/* <Badge value="-10%" status="error" />
-                     */}
                     <Text
                       style={{
                         textAlign: "center",
@@ -455,14 +480,29 @@ const Home = ({ navigation }) => {
                         color: "white",
                       }}
                     >
-                      {listFlashSale.sale}
+                      -10%
                     </Text>
                   </View>
                   <View style={styles.textContainerSale}>
-                    <Text style={styles.productNameSale}>
+                    <Text
+                      numberOfLines={1}
+                      ellipsizeMode="tail"
+                      style={styles.productNameSale}
+                    >
                       {listFlashSale.name}
                     </Text>
-                    <Text style={styles.priceSale}>{listFlashSale.price}</Text>
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <Text style={styles.priceSale}>
+                        {listFlashSale.price}
+                      </Text>
+                      <Text style={styles.priceSale}> vnđ</Text>
+                    </View>
                   </View>
                 </TouchableOpacity>
               ))}
@@ -512,20 +552,24 @@ const Home = ({ navigation }) => {
                   />
                   <View style={styles.textContainer}>
                     <Text
-                      // numberOfLines={1}
-                      // ellipsizeMode="tail"
+                      numberOfLines={2}
+                      ellipsizeMode="tail"
                       style={styles.productName}
                     >
                       {listProduct.name}
                     </Text>
-                    <Text style={styles.price}>{listProduct.price}</Text>
-                    <Text style={styles.discount}>{listProduct.discount}</Text>
+                    <View style={{ flexDirection: "row" }}>
+                      <Text style={styles.price}>{listProduct.price}</Text>
+                      <Text style={styles.price}> vnđ</Text>
+                    </View>
+                    {/* <Text style={styles.discount}>{listProduct.discount}</Text> */}
                     <View>
                       <View
                         style={{
                           display: "flex",
                           flexDirection: "row",
                           marginTop: 1,
+                          marginTop: 10,
                         }}
                       >
                         <AntDesign name="star" size={13} color="orange" />
@@ -536,7 +580,7 @@ const Home = ({ navigation }) => {
                             marginLeft: 3,
                           }}
                         >
-                          {listProduct.star}
+                          4.5
                         </Text>
                         <Text
                           style={{
@@ -545,8 +589,8 @@ const Home = ({ navigation }) => {
                             marginLeft: 50,
                           }}
                         >
-                          {"|       "}
-                          {listProduct.sold}
+                          {"|     "}
+                          100 Đã bán
                         </Text>
                       </View>
                       <View
@@ -569,7 +613,7 @@ const Home = ({ navigation }) => {
                             marginLeft: 5,
                           }}
                         >
-                          {listProduct.map}
+                          Hà Nội
                         </Text>
                       </View>
                     </View>
@@ -674,10 +718,9 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     marginBottom: 3,
-    flexWrap: "nowrap",
   },
   price: {
-    fontSize: 16,
+    fontSize: 18,
     color: "red", // Set color for the price
   },
   contentSale: {

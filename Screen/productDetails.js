@@ -141,7 +141,7 @@ const ProductDetails = () => {
               </Text>
             </View>
             <Text style={styles.price}>{apis?.price} vnđ</Text>
-            <Text style={styles.discount}>50.000.000 vnđ</Text>
+            <Text style={styles.discount}>20.000 vnđ</Text>
           </View>
 
           <View
@@ -153,7 +153,7 @@ const ProductDetails = () => {
               justifyContent: "space-between",
             }}
           >
-            <View style={styles.colorDetails}>
+            {/* <View style={styles.colorDetails}>
               <Text style={{ color: "gray", fontSize: 18 }}>Color:</Text>
               <View style={styles.colorOption}>
                 {colorOptions.map((color) => (
@@ -168,12 +168,12 @@ const ProductDetails = () => {
                   />
                 ))}
               </View>
-              {/* {selectedColor && (
+              {selectedColor && (
                 <View style={styles.selectedColor}>
                   <Text style={{ color: "white" }}>✓</Text>
                 </View>
-              )} */}
-            </View>
+              )}
+            </View> */}
           </View>
         </View>
 

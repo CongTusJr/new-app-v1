@@ -1,7 +1,7 @@
 import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 
-function Singup({ navigation }) {
+function Signup({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [Repassword, setRePassword] = useState("");
@@ -169,4 +169,4 @@ function Singup({ navigation }) {
   );
 }
 
-export default Singup;
+export default Signup;
