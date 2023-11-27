@@ -7,7 +7,44 @@ function Login({ navigation }) {
   const [password, setPassword] = useState("");
 
   //gửi request lên backend để đăng nhập
-  const handlerSubmit = () => {
+  const handlerSubmit = async () => {
+    // try {
+    //   const response = await fetch("http://192.168.19.5:4000/api/login", {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({
+    //       username: email,
+    //       password: password,
+    //     }),
+    //   });
+    //   const responseJson = await response.json();
+    //   if (responseJson.mes === "Đăng nhập thành công") {
+    //     console.log(responseJson);
+    //     alert(responseJson.mes);
+    //     // Reset login attempts on successful login
+    //     AsyncStorage.removeItem("loginAttempts");
+    //     AsyncStorage.setItem("id", responseJson.id);
+    //     navigation.replace("tab");
+    //   } else {
+    //     // Increment login attempts on unsuccessful login
+    //     const loginAttempts =
+    //       (await AsyncStorage.getItem("loginAttempts")) || "0";
+    //     const attempts = parseInt(loginAttempts) + 1;
+    //     if (attempts >= 3) {
+    //       alert(
+    //         "Bạn đã đạt đến số lần đăng nhập tối đa. Vui lòng thử lại sau."
+    //       );
+    //       // Optionally: You may want to block the login button or take additional actions.
+    //     } else {
+    //       alert(`Đăng nhập thất bại! (Thử lại ${attempts} / 3 lần.)`);
+    //       AsyncStorage.setItem("loginAttempts", attempts.toString());
+    //     }
+    //   }
+    // } catch (error) {
+    //   console.log(error);
+    // }
     fetch("http://192.168.19.5:4000/api/login", {
       method: "POST",
       headers: {

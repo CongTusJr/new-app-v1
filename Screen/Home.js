@@ -65,169 +65,6 @@ const Home = ({ navigation }) => {
     },
   ];
 
-  // //flash sale
-  // const listFlashSales = [
-  //   {
-  //     id: 1,
-  //     name: "IPhone 15 Pro Max",
-  //     price: " 40.990.000 vnđ",
-  //     url: "https://cdn1.viettelstore.vn/Images/Product/ProductImage/1921167348.jpeg",
-  //     sale: "-10%",
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "IPhone 14 Pro Max",
-  //     price: " 20.990.000 vnđ",
-  //     url: "https://cdn1.viettelstore.vn/Images/Product/ProductImage/1921167348.jpeg",
-  //     sale: "-11%",
-  //   },
-  //   {
-  //     id: 3,
-  //     name: "IPhone 15 Pro Max",
-  //     price: " 40.990.000 vnđ",
-  //     url: "https://cdn1.viettelstore.vn/Images/Product/ProductImage/1921167348.jpeg",
-  //     sale: "-9%",
-  //   },
-  //   {
-  //     id: 4,
-  //     name: "IPhone 15 Pro Max",
-  //     price: " 40.990.000 vnđ",
-  //     url: "https://cdn1.viettelstore.vn/Images/Product/ProductImage/1921167348.jpeg",
-  //     sale: "-10%",
-  //   },
-  //   {
-  //     id: 5,
-  //     name: "IPhone 15 Pro Max",
-  //     price: " 40.990.000 vnđ",
-  //     url: "https://cdn1.viettelstore.vn/Images/Product/ProductImage/1921167348.jpeg",
-  //     sale: "-10%",
-  //   },
-  //   {
-  //     id: 6,
-  //     name: "IPhone 15 Pro Max",
-  //     price: " 40.990.000 vnđ",
-  //     url: "https://cdn1.viettelstore.vn/Images/Product/ProductImage/1921167348.jpeg",
-  //     sale: "-10%",
-  //   },
-  //   {
-  //     id: 7,
-  //     name: "IPhone 15 Pro Max",
-  //     price: " 40.990.000 vnđ",
-  //     url: "https://cdn1.viettelstore.vn/Images/Product/ProductImage/1921167348.jpeg",
-  //     sale: "-10%",
-  //   },
-  //   {
-  //     id: 8,
-  //     name: "IPhone 15 Pro Max",
-  //     price: " 40.990.000 vnđ",
-  //     url: "https://cdn1.viettelstore.vn/Images/Product/ProductImage/1921167348.jpeg",
-  //     sale: "-10%",
-  //   },
-  // ];
-  // //discover
-  // const listProducts = [
-  //   {
-  //     id: 1,
-  //     url: "https://cdn1.viettelstore.vn/Images/Product/ProductImage/1921167348.jpeg",
-  //     name: "IPhone 15 Pro Max 1TB",
-  //     price: "40.990.000 vnđ",
-  //     discount: "50.000.000 vnđ",
-  //     star: "4.9",
-  //     sold: "20 Đã bán",
-  //     map: "Hà Nội",
-  //   },
-  //   {
-  //     id: 2,
-  //     url: "https://cdn1.viettelstore.vn/Images/Product/ProductImage/1921167348.jpeg",
-  //     name: "IPhone 15 Pro Max 1TB",
-  //     price: "40.990.000 vnđ",
-  //     discount: "50.000.000 vnđ",
-  //     star: "4.9",
-  //     sold: "20 Đã bán",
-  //     map: "Hà Nội",
-  //   },
-  //   {
-  //     id: 3,
-  //     url: "https://cdn1.viettelstore.vn/Images/Product/ProductImage/1921167348.jpeg",
-  //     name: "IPhone 15 Pro Max 1TB",
-  //     price: "40.990.000 vnđ",
-  //     discount: "50.000.000 vnđ",
-  //     star: "4.9",
-  //     sold: "20 Đã bán",
-  //     map: "Hà Nội",
-  //   },
-  //   {
-  //     id: 4,
-  //     url: "https://cdn1.viettelstore.vn/Images/Product/ProductImage/1921167348.jpeg",
-  //     name: "IPhone 15 Pro Max 1TB",
-  //     price: "40.990.000 vnđ",
-  //     discount: "50.000.000 vnđ",
-  //     star: "4.9",
-  //     sold: "20 Đã bán",
-  //     map: "Hà Nội",
-  //   },
-  //   {
-  //     id: 5,
-  //     url: "https://cdn1.viettelstore.vn/Images/Product/ProductImage/1921167348.jpeg",
-  //     name: "IPhone 15 Pro Max 1TB",
-  //     price: "40.990.000 vnđ",
-  //     discount: "50.000.000 vnđ",
-  //     star: "4.9",
-  //     sold: "20 Đã bán",
-  //     map: "Hà Nội",
-  //   },
-  //   {
-  //     id: 6,
-  //     url: "https://cdn1.viettelstore.vn/Images/Product/ProductImage/1921167348.jpeg",
-  //     name: "IPhone 15 Pro Max 1TB",
-  //     price: "40.990.000 vnđ",
-  //     discount: "50.000.000 vnđ",
-  //     star: "4.9",
-  //     sold: "20 Đã bán",
-  //     map: "Hà Nội",
-  //   },
-  //   {
-  //     id: 7,
-  //     url: "https://cdn1.viettelstore.vn/Images/Product/ProductImage/1921167348.jpeg",
-  //     name: "IPhone 15 Pro Max 1TB",
-  //     price: "40.990.000 vnđ",
-  //     discount: "50.000.000 vnđ",
-  //     star: "4.9",
-  //     sold: "20 Đã bán",
-  //     map: "Hà Nội",
-  //   },
-  //   {
-  //     id: 8,
-  //     url: "https://cdn1.viettelstore.vn/Images/Product/ProductImage/1921167348.jpeg",
-  //     name: "IPhone 15 Pro Max 1TB",
-  //     price: "40.990.000 vnđ",
-  //     discount: "50.000.000 vnđ",
-  //     star: "4.9",
-  //     sold: "20 Đã bán",
-  //     map: "Hà Nội",
-  //   },
-  //   {
-  //     id: 9,
-  //     url: "https://cdn1.viettelstore.vn/Images/Product/ProductImage/1921167348.jpeg",
-  //     name: "IPhone 15 Pro Max 1TB",
-  //     price: "40.990.000 vnđ",
-  //     discount: "50.000.000 vnđ",
-  //     star: "4.9",
-  //     sold: "20 Đã bán",
-  //     map: "Hà Nội",
-  //   },
-  //   {
-  //     id: 10,
-  //     url: "https://cdn1.viettelstore.vn/Images/Product/ProductImage/1921167348.jpeg",
-  //     name: "IPhone 15 Pro Max 1TB",
-  //     price: "40.990.000 vnđ",
-  //     discount: "50.000.000 vnđ",
-  //     star: "4.9",
-  //     sold: "20 Đã bán",
-  //     map: "Hà Nội",
-  //   },
-  // ];
-
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) =>
@@ -272,6 +109,30 @@ const Home = ({ navigation }) => {
       });
   }, []);
 
+  //chức nagw tìm kiếm
+  const [search, setSearch] = useState([]);
+  useEffect(() => {
+    if (searchText !== undefined && searchText !== "") {
+      fetch(`http://192.168.19.5:4000/api/search/${searchText}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((data) => data.json())
+        .then((data) => {
+          setSearch(data.metadata);
+        })
+        .catch((error) => {
+          console.error("Error fetching data:", error);
+        });
+    } else {
+      setSearch([]);
+    }
+  }, [searchText]);
+
+  // console.log(search);
+
   return (
     <View style={styles.container}>
       <Header
@@ -303,6 +164,60 @@ const Home = ({ navigation }) => {
           />
         }
       />
+
+      <View
+        style={{
+          width: 350,
+          height: 300,
+          backgroundColor: "#FFB6C1",
+          borderRadius: 10,
+          justifyContent: "center",
+          alignItems: "center",
+          marginTop: 10,
+          position: "absolute",
+          zIndex: 1,
+          top: 80,
+          right: 30,
+        }}
+      >
+        <ScrollView>
+          {search?.map((api) => (
+            <TouchableOpacity
+              key={api._id}
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
+                width: 320,
+              }}
+              onPress={() => navigation.navigate("Details", { id: api._id })}
+            >
+              <Image
+                source={{
+                  uri: api.img,
+                }}
+                style={{
+                  width: 50,
+                  height: 50,
+                  borderRadius: 10,
+                  marginBottom: 10,
+                }}
+              />
+              <Text
+                numberOfLines={1}
+                ellipsizeMode="tail"
+                style={{
+                  width: 150,
+                }}
+              >
+                {api.name}
+              </Text>
+              <Text>{api.price}</Text>
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
+      </View>
       <ScrollView>
         <View>
           <FlatList

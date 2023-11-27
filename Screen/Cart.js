@@ -13,7 +13,7 @@ import { Header } from "@rneui/themed";
 import { AntDesign, Entypo, Ionicons } from "@expo/vector-icons";
 import CheckBox from "react-native-check-box";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
+import { useFocusEffect } from "@react-navigation/native";
 import { useNavigation } from "@react-navigation/native";
 
 const Cart = () => {
@@ -98,7 +98,6 @@ const Cart = () => {
 
     fetchUserId();
   }, []);
-
   console.log({ userId });
 
   //xử lý gọi giỏ hàng ra
@@ -112,9 +111,18 @@ const Cart = () => {
       });
   };
 
+  useFocusEffect(
+    React.useCallback(() => {
+      getApi();
+      return () => {
+        // Clean up (nếu cần)
+      };
+    }, [])
+  );
+
   useEffect(() => {
     getApi();
-  }, [userId]);
+  }, []);
 
   //Xử lý thanh toán
   const HanlerTT = () => {
@@ -197,7 +205,16 @@ const Cart = () => {
         <View style={styles.listContent}>
           <View style={styles.listShop}>
             {apis.length == 0 ? (
-              <Text>Hiện Chưa có đơn hàng nào</Text>
+              <Text
+                style={{
+                  textAlign: "center",
+                  paddingVertical: 20,
+                  fontSize: 20,
+                  color: "#fff",
+                }}
+              >
+                Hiện Chưa có đơn hàng nào.
+              </Text>
             ) : (
               apis?.map((listItemsContent) => (
                 <View
@@ -206,14 +223,14 @@ const Cart = () => {
                 >
                   <View style={styles.listItems}>
                     <View style={styles.items}>
-                      <CheckBox
+                      {/* <CheckBox
                         style={styles.checkBox}
                         isChecked={checkedItems.includes(listItemsContent.id)}
                         onClick={() =>
                           handleItemCheckboxClick(listItemsContent.id)
                         }
                         checkBoxColor="pink"
-                      />
+                      /> */}
                       <Image
                         source={{
                           uri: listItemsContent.img,
@@ -259,16 +276,12 @@ const Cart = () => {
                           {listItemsContent.price}
                         </Text>
                       </View>
-                      <TouchableOpacity
-                        onPress={() => handleDelete(listItemsContent._id)}
-                      >
-                        <Ionicons
-                          name="ios-trash-bin"
-                          size={22}
-                          color="white"
-                        />
-                      </TouchableOpacity>
                     </View>
+                    <TouchableOpacity
+                      onPress={() => handleDelete(listItemsContent._id)}
+                    >
+                      <Ionicons name="ios-trash-bin" size={22} color="white" />
+                    </TouchableOpacity>
                   </View>
                   <View style={styles.productVNum}>
                     <View style={styles.productNum}>
@@ -311,12 +324,6 @@ const Cart = () => {
         <View style={{ height: 60 }}></View>
       </ScrollView>
       <View style={styles.footer}>
-        <CheckBox
-          style={[styles.checkBox, {}]}
-          isChecked={isCheckedAll}
-          onClick={handleCheckAllClick}
-          checkBoxColor="grey"
-        />
         <View
           style={{
             width: "60%",
@@ -325,13 +332,17 @@ const Cart = () => {
             justifyContent: "space-between",
           }}
         >
-          <Text style={{ textAlignVertical: "center", color: "grey" }}>
-            All
+          <Text
+            style={{
+              color: "grey",
+              textAlign: "center",
+              marginLeft: 30,
+              fontSize: 20,
+            }}
+          >
+            Total:
           </Text>
-          <View style={{ marginRight: 10 }}>
-            <Text style={{ color: "grey", textAlign: "center" }}>Total</Text>
-            <Text style={{ color: "red" }}>100.000.000 vnđ</Text>
-          </View>
+          <Text style={{ color: "red", fontSize: 20 }}>100.000.000 vnđ</Text>
         </View>
         <View style={styles.footerButton}>
           <Button color="pink" title="Check Out" onPress={() => HanlerTT()} />
@@ -393,20 +404,22 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFE4E1",
     borderRadius: 15,
     flexDirection: "row",
+    justifyContent: "space-between",
     // alignItems: "center",
   },
   items: {
     marginTop: 10,
-    width: 125,
+    width: 90,
     height: 90,
     backgroundColor: "#FFE4E1",
     borderRadius: 15,
     flexDirection: "row",
     alignItems: "center",
+    marginLeft: 10,
   },
   items2: {
     marginTop: 10,
-    width: "70%",
+    width: "60%",
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-around",

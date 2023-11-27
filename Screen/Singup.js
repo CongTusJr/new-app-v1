@@ -8,6 +8,23 @@ function Singup({ navigation }) {
 
   //gửi request lên backend để đăng nhập
   const handlerSubmit = () => {
+    // Basic email validation
+    // if (!email || !/\S+@\S+\.\S+/.test(email)) {
+    //   alert("Vui lòng nhập địa chỉ email hợp lệ!");
+    //   return;
+    // }
+
+    // // Basic password validation
+    // if (!password || password.length < 6) {
+    //   alert("Vui lòng nhập mật khẩu có ít nhất 6 ký tự!");
+    //   return;
+    // }
+
+    // // Check if the password and re-entered password match
+    // if (password !== Repassword) {
+    //   alert("Mật khẩu nhập lại không chính xác!");
+    //   return;
+    // }
     fetch("http://192.168.19.5:4000/api/register", {
       method: "POST",
       headers: {
@@ -20,7 +37,7 @@ function Singup({ navigation }) {
     })
       .then((response) => response.json())
       .then((responseJson) => {
-        if (responseJson.mes === "Đăng ký thành công") {
+        if (responseJson.mes === "Đăng ký tài khoản thành công!") {
           alert(responseJson.mes);
           navigation.navigate("Login");
         } else {

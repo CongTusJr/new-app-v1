@@ -45,14 +45,14 @@ const ProductDetails = () => {
     // Handle button press logic here
     console.log("Button pressed!");
   };
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(1);
 
   const increaseQuantity = () => {
     setQuantity(quantity + 1);
   };
 
   const decreaseQuantity = () => {
-    if (quantity > 0) {
+    if (quantity > 1) {
       setQuantity(quantity - 1);
     }
   };
@@ -186,7 +186,7 @@ const ProductDetails = () => {
             bền cùng viền cạnh mỏng cầm nắm thoảiƯ mái */}
             {apis?.description}
           </Text>
-          <Text style={styles.describeText}>
+          {/* <Text style={styles.describeText}>
             • Hiệu năng Pro chiến game thả ga - Chip A17 Pro mang lại hiệu năng
             đồ họa vô cùng sống động và chân thực
           </Text>
@@ -197,7 +197,7 @@ const ProductDetails = () => {
           <Text style={styles.describeText}>
             • Nút tác vụ mới giúp nhanh chóng kích hoạt tính năng yêu thích của
             bạn
-          </Text>
+          </Text> */}
         </View>
         {/* </View> */}
       </ScrollView>

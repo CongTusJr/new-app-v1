@@ -18,9 +18,20 @@ function StackScreen() {
             headerShown: false,
           }}
         />
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Singup" component={Singup} />
-
+        <Stack.Screen
+          options={{
+            headerShown: false,
+          }}
+          name="Login"
+          component={LoginScreen}
+        />
+        <Stack.Screen
+          options={{
+            headerShown: false,
+          }}
+          name="Singup"
+          component={Singup}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
