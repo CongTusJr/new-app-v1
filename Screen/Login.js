@@ -26,6 +26,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
                 console.log(responseJson)
                 alert(responseJson.mes);
                  AsyncStorage.setItem( 'id', responseJson.id, );
+                 AsyncStorage.setItem( 'email', responseJson.usename, );
+
                 navigation.replace('tab');
             } else {
                 alert(responseJson.mes);

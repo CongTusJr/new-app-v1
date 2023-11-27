@@ -27,7 +27,23 @@ import { Input } from 'react-native-elements';
 
 export default function ThongTinTaiKhoan() {
     // const theme = useContext(ThemeConText)
-   
+    const [email,setEmail] = useState("")
+    useEffect(() => {
+        const fetchUserId = async () => {
+        try {
+          const res = await AsyncStorage.getItem('email');
+          if (res) {
+            setEmail(res);
+          }
+        } catch (error) {
+          console.error('Error fetching user ID:', error);
+        }
+      };
+
+      fetchUserId();
+
+    
+  }, []);
 
     return (
         <View
@@ -123,7 +139,7 @@ export default function ThongTinTaiKhoan() {
                                         color: "black",
                                     }}
                                 >
-                                    tú
+                                   {email}
                                 </Text>
                             </View>
                         </View>

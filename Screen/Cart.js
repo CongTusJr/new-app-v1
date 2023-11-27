@@ -83,6 +83,23 @@ const Cart = () => {
    //lấy id của ng đnăg nhập
      const [userId, setUserId] = useState();
        const [apis, setApi] = useState([])
+          const [email,setEmail] = useState("")
+    useEffect(() => {
+        const fetchUserId = async () => {
+        try {
+          const res = await AsyncStorage.getItem('email');
+          if (res) {
+            setEmail(res);
+          }
+        } catch (error) {
+          console.error('Error fetching user ID:', error);
+        }
+      };
+
+      fetchUserId();
+
+    
+  }, []);
 
      useEffect(() => {
         const fetchUserId = async () => {
@@ -228,90 +245,104 @@ const Cart = () => {
       <ScrollView>
         <View style={styles.listContent}>
             <View  style={styles.listShop}>
-             
-              {apis.length ==0 ? 
-                <Text>
-                    Hiện Chưa có đơn hàng nào
-                </Text> :
-              apis?.map((listItemsContent) => (
-                <View key={listItemsContent._id} style={styles.listItemsContent}>
-                  <View style={styles.listItems}>
-                    <View style={styles.items}>
-                      <CheckBox
-                        style={styles.checkBox}
-                        isChecked={checkedItems.includes(listItemsContent.id)}
-                        onClick={() =>
-                          handleItemCheckboxClick(listItemsContent.id)
-                        }
-                        checkBoxColor="pink"
-                      />
-                      <Image
-                        source={{
-                          uri: listItemsContent.img,
-                        }}
-                        style={styles.imageContent}
-                      />
-                    </View>
-                    <View style={styles.items2} >
-                      <View style={styles.viewProduct}>
-                        <Text 
-                          numberOfLines={1} ellipsizeMode="tail"
-                            style={{
-                              width: 150,
-                            }}
-                        >
-                          {listItemsContent.nameproduct}
-                        </Text>
+             {apis.length === 0 ? (
+  <Text>
+    Hiện Chưa có đơn hàng nào
+  </Text>
+) : (
+  <View>
+    <Text style={{
+      padding: 10,
+      color: 'white',
+      fontSize: 18,
+      fontWeight: 'bold',
+    }}>
+      Tài khoản: 
+      {email}
+    </Text>
+    {apis?.map((listItemsContent) => (
+      <View key={listItemsContent._id} style={styles.listItemsContent}>
+        <View style={styles.listItems}>
+          <View style={styles.items}>
+            <CheckBox
+              style={styles.checkBox}
+              isChecked={checkedItems.includes(listItemsContent.id)}
+              onClick={() =>
+                handleItemCheckboxClick(listItemsContent.id)
+              }
+              checkBoxColor="pink"
+            />
+            <Image
+              source={{
+                uri: listItemsContent.img,
+              }}
+              style={styles.imageContent}
+            />
+          </View>
+          <View style={styles.items2}>
+            <View style={styles.viewProduct}>
+              <Text
+                numberOfLines={1}
+                ellipsizeMode="tail"
+                style={{
+                  width: 150,
+                }}
+              >
+                {listItemsContent.nameproduct}
+              </Text>
 
-                      
-                        <View style={styles.productDay}>
-                          <Text style={styles.productday}>
-                            7 ngày miễn phí trả hàng
-                          </Text>
-                        </View>
-                        <Text style={styles.productPrice}>
-                          {listItemsContent.price}
-                        </Text>
-                      </View>
-                    <TouchableOpacity onPress={() => handleDelete(listItemsContent._id)}>
-                             <Ionicons name="ios-trash-bin" size={22} color="white" />
-                      </TouchableOpacity>
-                    </View>
-                  </View>
-                  <View style={styles.productVNum}>
-                    <View style={styles.productNum}>
-                      <Text
-                        style={{
-                          textAlign: "center",
-                          color: "grey",
-                        }}
-                      >
-                        -
-                      </Text>
-                    </View>
-                    <View style={styles.productNum}>
-                      <Text
-                        style={{
-                          textAlign: "center",
-                          color: "grey",
-                        }}
-                      >
-                        {listItemsContent.quantity}
-                      </Text>
-                    </View>
-                    <View style={styles.productNum}>
-                      <Text
-                        style={{
-                          textAlign: "center",
-                          color: "grey",
-                        }}
-                      >
-                        +
-                      </Text>
-                    </View>
-                  </View>
-                </View>
-              ))}
+              <View style={styles.productDay}>
+                <Text style={styles.productday}>
+                  7 ngày miễn phí trả hàng
+                </Text>
+              </View>
+              <Text style={styles.productPrice}>
+                {listItemsContent.price}
+              </Text>
+            </View>
+            <TouchableOpacity onPress={() => handleDelete(listItemsContent._id)}>
+              <Ionicons name="ios-trash-bin" size={22} color="white" />
+            </TouchableOpacity>
+          </View>
+        </View>
+        <View style={styles.productVNum}>
+          <View style={styles.productNum}>
+            <Text
+              style={{
+                textAlign: "center",
+                color: "grey",
+              }}
+            >
+              -
+            </Text>
+          </View>
+          <View style={styles.productNum}>
+            <Text
+              style={{
+                textAlign: "center",
+                color: "grey",
+              }}
+            >
+              {listItemsContent.quantity}
+            </Text>
+          </View>
+          <View style={styles.productNum}>
+            <Text
+              style={{
+                textAlign: "center",
+                color: "grey",
+              }}
+            >
+              +
+            </Text>
+          </View>
+        </View>
+      </View>
+    ))}
+  </View>
+)}
+
+             
               <View style={{ height: 10 }}></View>
             </View>
         </View>
