@@ -18,7 +18,7 @@ function StackScreen() {
             headerShown: false,
           }}
         />
-        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="Login" component={LoginScreen}  />
         <Stack.Screen name="Singup" component={Singup} />
 
       </Stack.Navigator>

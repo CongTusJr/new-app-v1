@@ -99,37 +99,33 @@ const CartDone = () => {
       },[userId])
 
       console.log({apis})
-    //Xử lý thanh toán 
-    const HanlerTT =() => {
-      Alert.alert(
-        "Thanh toán",
-        "Bạn đã thanh toán thành công",
-        [
-          {
-            text: "OK",
-            onPress: () => {
-                fetch('http://192.168.0.104:4000/api/thanhtoan', {
-            method: 'POST',
+ 
+
+    //Xử lý xóa sản phẩm
+    const handleDelete = (id) => {
+        fetch(`http://192.168.0.104:4000/api/deletecart/${id}`, {
+            method: 'delete',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
-                product: apis
-            })
+           
         })
             .then(response => response.json())
             .then(responseJson => {
+               fetch(`http://192.168.0.104:4000/api/getListToCartByTT/${userId}`) //chú ý đổi mạng của chính bản thân
+          .then(data => {
+            return data.json()
+          })
+          .then(data => {
+            setApi(data)
+          })
                 alert(responseJson.mes);
             })
             .catch(error => {
                console.log(error);
             });
-            },
-          },
-        ],
-        { cancelable: false }
-      );
     }
+
 
   return (
     <View style={styles.container}>
@@ -180,35 +176,18 @@ const CartDone = () => {
                         style={styles.imageContent}
                       />
                     </View>
-                    <View style={styles.items2}>
+                   <View style={styles.items2} >
                       <View style={styles.viewProduct}>
-                        <Text style={styles.productName}>
-                          {listItemsContent.productName}
+                        <Text 
+                          numberOfLines={1} ellipsizeMode="tail"
+                            style={{
+                              width: 150,
+                            }}
+                        >
+                          {listItemsContent.nameproduct}
                         </Text>
 
-                        <View style={styles.productSize}>
-                          <Text
-                            style={{
-                              textAlign: "center",
-                              color: "pink",
-                              marginLeft: 4,
-                              fontSize: 13,
-                            }}
-                          >
-                            Phân loại:
-                          </Text>
-                          <Text
-                            style={{
-                              textAlign: "center",
-                              color: "pink",
-                              marginLeft: 4,
-                              fontSize: 13,
-                            }}
-                          >
-                            {listItemsContent.productSize}
-                          </Text>
-                          <Entypo name="chevron-down" size={20} color="pink" />
-                        </View>
+                      
                         <View style={styles.productDay}>
                           <Text style={styles.productday}>
                             7 ngày miễn phí trả hàng
@@ -218,6 +197,9 @@ const CartDone = () => {
                           {listItemsContent.price}
                         </Text>
                       </View>
+                    <TouchableOpacity onPress={() => handleDelete(listItemsContent._id)}>
+                             <Ionicons name="ios-trash-bin" size={22} color="white" />
+                      </TouchableOpacity>
                     </View>
                   </View>
                   <View style={styles.productVNum}>

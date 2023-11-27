@@ -43,7 +43,9 @@ export default function TabButtomScreen() {
         component={Cart}
         options={{ headerShown: false }}
       />
-      <Tab.Screen name="User" component={User} />
+      <Tab.Screen name="User" component={User} options={{
+            headerShown: false,
+          }} />
     </Tab.Navigator>
   );
 }

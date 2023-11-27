@@ -298,9 +298,6 @@ const Home = ({ navigation }) => {
   }
 }, [searchText]);
 
-
-  console.log(search)
-
   return (
     <View style={styles.container}>
       <Header
@@ -329,7 +326,7 @@ const Home = ({ navigation }) => {
           />
         }
       />
-
+      {searchText !== undefined && searchText !== "" ? 
       <View style={{
         width: 350,
         height: 300,
@@ -345,7 +342,10 @@ const Home = ({ navigation }) => {
       }}>
         <ScrollView >
       {search?.map(api => (
-          <TouchableOpacity style={{
+          <TouchableOpacity 
+            key={api._id}
+
+          style={{
           display: 'flex',
           flexDirection: 'row',
           justifyContent:'space-between',
@@ -380,6 +380,9 @@ const Home = ({ navigation }) => {
       ))}
       </ScrollView>
       </View>
+      : null
+            
+    }
       <ScrollView>
         <View>
           <FlatList
@@ -501,7 +504,12 @@ const Home = ({ navigation }) => {
                     style={styles.imageContent}
                   />
                   <View style={styles.textContainer}>
-                    <Text style={styles.productName}>{listProduct.name}</Text>
+                    <Text numberOfLines={1} ellipsizeMode="tail"
+                      style={{
+                        width: 150,
+                        fontSize:16
+                      }}
+            >{listProduct.name}</Text>
                     <Text style={styles.price}>{listProduct.price}</Text>
                     <Text style={styles.discount}>{listProduct.discount}</Text>
                     <View>
@@ -510,9 +518,10 @@ const Home = ({ navigation }) => {
                           display: "flex",
                           flexDirection: "row",
                           marginTop: 1,
+                          justifyContent: 'space-around'
                         }}
                       >
-                        <AntDesign name="star" size={13} color="orange" />
+                          <AntDesign name="star" size={13} color="orange" />
                         <Text
                           style={{
                             color: "orange",
@@ -520,7 +529,7 @@ const Home = ({ navigation }) => {
                             marginLeft: 3,
                           }}
                         >
-                          {listProduct.star}
+                          4,5
                         </Text>
                         <Text
                           style={{
@@ -530,7 +539,8 @@ const Home = ({ navigation }) => {
                           }}
                         >
                           {"|       "}
-                          {listProduct.sold}
+                          {/* {listProduct.sold} */}
+                          20 đã bán
                         </Text>
                       </View>
                       <View
@@ -539,6 +549,8 @@ const Home = ({ navigation }) => {
                           flexDirection: "row",
                           marginTop: 0,
                           marginLeft: 2,
+                            marginTop: 10
+
                         }}
                       >
                         <FontAwesome5
@@ -550,10 +562,11 @@ const Home = ({ navigation }) => {
                           style={{
                             color: "grey",
                             fontSize: 12,
-                            marginLeft: 5,
+                            marginLeft: 0,
                           }}
                         >
-                          {listProduct.map}
+                          {/* {listProduct.map} */}
+                          Hà nội
                         </Text>
                       </View>
                     </View>

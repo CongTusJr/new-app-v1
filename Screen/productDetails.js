@@ -50,7 +50,7 @@ const ProductDetails = () => {
     // Handle button press logic here
     console.log("Button pressed!");
   };
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(1);
 
   const increaseQuantity = () => {
     setQuantity(quantity + 1);
